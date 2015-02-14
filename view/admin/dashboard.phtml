@@ -1,0 +1,91 @@
+<div class="container">
+    <?php
+    /**
+     * A simple, clean and secure PHP Login Script / MINIMAL VERSION
+     * For more versions (one-file, advanced, framework-like) visit http://www.php-login.net
+     *
+     * Uses PHP SESSIONS, modern password-hashing and salting and gives the basic functions a proper login system needs.
+     *
+     * @author Panique
+     * @link https://github.com/panique/php-login-minimal/
+     * @license http://opensource.org/licenses/MIT MIT License
+     */
+
+    // checking for minimum PHP version
+    if (version_compare(PHP_VERSION, '5.3.3', '<')) {
+        exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");
+    } else if (version_compare(PHP_VERSION, '5.5.0', '<')) {
+        // if you are using PHP 5.3 or PHP 5.4 you have to include the password_api_compatibility_library.php
+        // (this library adds the PHP 5.5 password hashing functions to older versions of PHP)
+        require_once("lib/password_compatibility_library.php");
+    }
+
+    //Login already instanced
+    //$Login = new Login();
+
+    // ... ask if we are logged in here:
+    if ($login->isUserLoggedIn() == true) {
+        // the user is logged in. you can do whatever you want here.
+        // for demonstration purposes, we simply show the "you are logged in" view.
+        ?>
+        <div class="container">
+            
+            <hr>
+            
+            <div class="col-md-6">
+                <div class="well-sm">
+                    
+                    <img src="stats/daily_usage_<?php echo date('Ym'); ?>.png" class="img-responsive" alt="Monthly Stats" />
+                    
+                </div>
+            </div>
+            <div class="col-md-6">
+            	<h4>&nbsp;Admin Menu</h4>
+                <ul>
+                    <li><a rel="nofollow" href="?page=admin/community">Community (<?php $query = "SELECT COUNT(*) AS `count` FROM `community` "; list ( $count ) = $database -> get_row($query); echo $count; ?>)</a></li>
+                    <li><a rel="nofollow" href="?page=admin/message">Send Message</a></li>
+                </ul>
+                <ul>
+                    <li><a rel="nofollow" href="?page=admin/news-manage">Manage News (<?php $query = "SELECT COUNT(*) AS `count` FROM news_"; list ( $count ) = $database -> get_row($query); echo $count; ?>)</a></li>
+                    <li><a rel="nofollow" href="?page=admin/news-add">Add News</a></li>
+                </ul>
+                <?php 
+                	if ($_SESSION['user_name'] === 'webmaster') 
+                	{
+                ?>
+                <ul>
+                    <li><a rel="nofollow" href="?page=admin/alert-manage">Manage Alerts (<?php $query = "SELECT COUNT(*) AS `count` FROM alert"; list ( $count ) = $database -> get_row($query); echo $count; ?>)</a></li>
+                    <li><a rel="nofollow" href="?page=admin/alert-add">Add Alert</a></li>
+                </ul>
+                <?php 
+                	}
+                ?>
+                <ul>
+                    <li><a rel="nofollow" href="?page=admin/downloads-manage">Manage Downloads (<?php $query = "SELECT COUNT(*) AS `count` FROM downloads"; list ( $count ) = $database -> get_row($query); echo $count; ?>)</a></li>
+                    <li><a rel="nofollow" href="?page=admin/downloads-add">Add Download</a></li>
+                </ul>
+                <?php 
+                	if ($_SESSION['user_name'] === 'webmaster') 
+                	{
+                ?>
+                <ul>
+                    <li><a rel="nofollow" href="?page=admin/register">Register User (<?php $query = "SELECT COUNT(*) AS `count` FROM users"; list ( $count ) = $database -> get_row($query); echo $count; ?>)</a></li>
+                    <li><a rel="nofollow" href="?page=admin/settings">Settings</a></li>
+                </ul>
+                <?php 
+                	}
+                ?>
+                <ul>
+                    <li><a rel="nofollow" href="?page=admin/about">About</a></li>
+                </ul>
+            </div>
+        </div>
+        <?php
+
+    } else {
+        // the user is not logged in. you can do whatever you want here.
+        // for demonstration purposes, we simply show the "you are not logged in" view.
+        header("location: ?page=login");
+    }
+    ?>
+</div>

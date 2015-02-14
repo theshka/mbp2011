@@ -1,0 +1,146 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			
+			<div class="text-center">
+				<a class="icon" href="//twitter.com/mbp2011_" target="_blank"><i class="fa fa-twitter fa-3x"></i></a> &nbsp; Twitter
+				<span style="font-size:30px;">&nbsp;|&nbsp;</span>
+      	      	<a class="icon" href="//facebook.com/2011mbp" target="_blank"><i class="fa fa-facebook fa-3x"></i></a> Facebook
+			</div>
+			
+			<hr>
+			<h4 class="text-center">Questions? Comments? Suggestions? Tips? Send us a message!</h4>
+			<hr>
+			
+			<?php if (defined(SITE_ADDRESS1) && defined(SITE_CITY) && defined(SITE_STATE) && defined(SITE_ZIP) && defined(SITE_PHONE) &&
+			SITE_ADDRESS1 != '' && SITE_CITY != '' && SITE_STATE != '' && SITE_ZIP != '' && SITE_PHONE != '') {?>
+				<address>
+				<strong><?php echo SITE_NAME; ?></strong><br>
+				<?php echo SITE_ADDRESS1; ?><br>
+				<?php echo SITE_CITY; ?>, <?php echo SITE_STATE; ?> <?php echo SITE_ZIP; ?><br>
+				<abbr title="Phone">P:</abbr> <?php echo SITE_PHONE; ?>
+				</address>
+			<?php } ?>
+
+			<?php
+				if ( isset($_POST['submit']) == 'submit' )
+				{
+					// from the form
+					$name = trim(cleanInput($_POST['name']));
+					$email = trim(cleanInput($_POST['email']));
+					$message = htmlentities($_POST['message']);
+					$code = cleanInput($_POST['code']);
+
+					if ($code === "7")
+					{
+						if ( checkEmail($email) == TRUE )
+						{
+							//capture user details
+							$community_name = $name;
+							$community_email = $email
+							;
+							$community = array(
+								'name'  => $community_name,
+								'email' => $community_email,
+								'source' => 'CONTACT FORM',
+								'ip' => getIP()
+							);
+							$database->insert( 'community', $community );
+				
+							//Create a new PHPMailer instance
+							$mail = new PHPMailer;
+
+							// Set PHPMailer to use the sendmail transport
+							$mail->isSendmail();
+
+							//Tell PHPMailer to use SMTP
+							//$mail->isSMTP();
+							//Enable SMTP debugging
+							// 0 = off (for production use)
+							// 1 = client messages
+							// 2 = client and server messages
+							//$mail->SMTPDebug = 2;
+							//Ask for HTML-friendly debug output
+							//$mail->Debugoutput = 'html';
+							//Set the hostname of the mail server
+							//$mail->Host = "mail.example.com";
+							//Set the SMTP port number - likely to be 25, 465 or 587
+							//$mail->Port = 25;
+							//Whether to use SMTP authentication
+							//$mail->SMTPAuth = true;
+							//Username to use for SMTP authentication
+							//$mail->Username = "yourname@example.com";
+							//Password to use for SMTP authentication
+							//$mail->Password = "yourpassword";
+
+							//Set who the message is to be sent from
+							$mail->setFrom($email, $name);
+
+							//Set who the message is to be sent to
+							$mail->addAddress(SITE_EMAIL);
+
+							//Set the subject line
+							$mail->Subject = 'New contact form submission!';
+
+							//Read an HTML message body from an external file, convert referenced images to embedded,
+							//convert HTML into a basic plain-text alternative body
+							$Parsedown = new Parsedown();
+
+							$mail->msgHTML($Parsedown->text($message));
+
+							//Replace the plain text body with one created manually
+							//$mail->AltBody = 'This is a plain-text message body';
+
+							//Attach an image file
+							//$mail->addAttachment('images/phpmailer_mini.png');
+
+							//send the message, check for errors
+							if (!$mail->send()) {
+								echo bsAlert('error', 'Mailer Error: ' . $mail->ErrorInfo);
+							} else {
+								echo bsAlert('success', 'Message sent!');
+							}
+						}
+						else
+						{
+							echo bsAlert('error', 'INVALID EMAIL ENTERED.');
+						}
+					}
+					else
+					{
+						echo bsAlert('error','INVALID CODE ENTERED.');
+					}
+				}
+			?>
+
+			<form action="" method="post" class="form">
+				<div class="form-group">
+					<label for="name">Name:</label>
+					<input type="text" name="name" id="name" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<label for="Email">Email:</label>
+					<input type="text" name="email" id="email" class="form-control" />
+				</div>
+
+				<div class="form-group">
+					<label for="Message">Message:</label> <small>* <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" rel="nofollow" target="_BLANK">Markdown</a> Supported *</small><br />
+					<textarea name="message" rows="10" cols="20" id="message" class="form-control"></textarea>
+				</div>
+
+				<div class="form-group">
+					<label for="code">Anti-Spam: &nbsp; <b>8 - 1 = ?</b></label><br />
+					<input type="text" name="code" id="code" class="form-control" />
+				</div>
+
+				<br>
+
+				<div class="form-group pull-right">
+					<input type="submit" name="submit" value="Submit" class="btn btn-default" />
+				</div>
+			</form>
+			<br>
+		</div>
+	</div>
+</div>

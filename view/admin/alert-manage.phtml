@@ -1,0 +1,149 @@
+<?php
+// create a login object. when this object is created, it will do all login/logout stuff automatically
+// so this single line handles the entire login process. in consequence, you can simply ...
+$login = new Login();
+
+// ... ask if we are logged in here:
+if ($login->isUserLoggedIn() == true) {
+    // the user is logged in. you can do whatever you want here.
+	?>
+
+	<div class="row">
+        <div class="col-md-10 col-md-offset-1">
+        	<!-- admin tab content here -->
+			<div class="alerts">
+				<?php
+				if(isset($_GET['action'])){
+					switch ($_GET['action']){
+						case 'delete' :
+						/**
+						 * Sanitize user data
+						 */
+						$id = $database->filter( $_GET['id'] );
+
+						/**
+						 * Deleting data
+						 */
+						$delete = array(
+							'id' => $id
+						);
+						$deleted = $database->delete( 'alert', $delete, 1 );
+						if( $deleted )
+						{
+							echo '
+								<div class="alert alert-success">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									Alert was successfully deleted!
+								</div>
+							';
+						}
+						break;
+					}
+				}
+
+				//not editing or deleting, show posts...
+
+				$limit = 5; #item per page
+				$page = (int) (!isset($_GET['p'])) ? 1 : $_GET['p'];
+
+				# sql query
+				$sql = "SELECT * FROM `alert` ORDER BY `date` DESC";
+
+				# find out query stat point
+				$start = ($page * $limit) - $limit;
+
+				# query for page navigation
+				if( ($database->num_rows($sql)) > ($page * $limit) ){
+					$next = ++$page;
+				}
+
+				$query = $sql . " LIMIT {$start}, {$limit}";
+
+				if ($database->num_rows($query) > 0) {
+
+					//show paginated list
+					$results = $database->get_results( $query );
+					foreach( $results as $row )
+					{
+
+						echo
+						'
+						<!-- Table -->
+						<table class="table alerts-alert">
+							<tr class="active">
+								<td width="80%" style="vertical-align:middle; color:#000;"> <strong> Alert ID: ' . $row['id'] . '</strong></td>
+								<td width="20%" class="text-right">
+									<a href="?page=admin/alert-edit&id=' . $row['id'] . '"><button class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-pencil"></span></button></a>
+								</td>
+								<td>
+									<a onClick="return confirm(\'Are you sure you want to delete this item?\');" href="?page=admin/alert-manage&action=delete&id=' . $row['id'] . '"><button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button></a>
+								</td>
+							</tr>
+							<tr>
+								<td width="90%">';
+
+								echo bsAlert( $row['type'], $row['message'] . '<br> <small>' . timeAgo(strtotime($row['date'])) . '</small>' );
+
+						echo
+						'
+								</td>
+								<td colspan="2" width="15%" class="text-right"><span class="glyphicon glyphicon-time"></span> &nbsp;' . timeAgo(strtotime($row['date'])) . '</span></td>
+							</tr>
+						</table>
+						';
+					}
+
+				}
+				else{
+					//No posts
+					echo '<div class="alert alert-danger"> There are no alerts to manage. <a href="?page=admin/alert-add">Add</a> an alert!</div>';
+				}
+
+				//page navigation
+				if (isset($next)) {
+					echo
+					'
+					<div class="alerts-more">
+						<ul class="pager">
+							<li class="next">
+								<a href="index.php?page=admin/alert-manage&p=' . $next . '">Next &rarr;</a>
+							</li>
+						</ul>
+					</div>
+					';
+				}
+				?>
+			</div>
+
+			<script type="text/javascript">
+			$(document).ready(function() {
+
+				// Infinite Ajax Scroll configuration
+				var ias = jQuery.ias({
+				  container:  '.alerts',
+				  item:       '.alerts-alert',
+				  pagination: '.alerts-more',
+				  next:       '.alerts-more li a',
+				});
+
+				// Add a loader image which is displayed during loading
+				ias.extension(new IASSpinnerExtension());
+
+				// Add a text when there are no more pages left to load
+				ias.extension(new IASNoneLeftExtension({text: '<div class="alert alert-info"> There are no more posts to show! </div>'}));
+
+			});
+			</script>
+			<!-- / admin tab content here -->
+		</div>
+	</div>
+
+
+
+	<?php
+} else {
+    // the user is not logged in. you can do whatever you want here.
+    // for demonstration purposes, we simply show the "you are not logged in" view.
+    header("Location: ?page=login");
+}
+?>

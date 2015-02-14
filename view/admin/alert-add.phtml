@@ -1,0 +1,145 @@
+
+<?php
+// create a login object. when this object is created, it will do all login/logout stuff automatically
+// so this single line handles the entire login process. in consequence, you can simply ...
+$login = new Login();
+
+// ... ask if we are logged in here:
+if ($login->isUserLoggedIn() == true) {
+    // the user is logged in. you can do whatever you want here.
+	?>
+
+	<div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <!-- admin tab content here -->
+           <div class="row">
+				<?php
+				if (isset($_POST['add']) == "true") {
+					/**
+					 * Sanitize user data
+					 */
+					$alert_type = $database->escape( $_POST['alert_type'] );
+					$alert_message = $database->filter( $_POST['alert_message'] );
+					//$alert_active = $database->filter($_POST['alert_acive']);
+
+					//gets the current date...
+					$date = date("Y-m-d h:i:sA");
+
+					if (!$alert_type or !$alert_message) {
+						echo bsAlert('error', 'Alert not added, you must enter a title and body!');
+					}
+					 else {
+
+						/**
+						 * Inserting data
+						 */
+						//The fields and values to insert
+						$names = array(
+							'type' => $alert_type,
+							'message' => $alert_message,
+							//'active' => $alert_active,
+							'date' => $date
+						);
+						$add_query = $database->insert( 'alert', $names );
+						if( $add_query )
+						{
+							//success...
+							echo
+							'
+							<div class="alert alert-success">
+								Alert was successfully added! Redirecting you to the alert manager...
+							</div>
+							<script>setTimeout(function () {window.location.href = "index.php?page=admin/alert-manage";}, 1000);</script>
+							';
+						}
+
+						$last = $database->lastid();
+					}
+				}
+				?>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<strong>New Alert:</strong>
+					</div><!-- / pannel heading -->
+
+					<div class="panel-body" style="color:#000;">
+						<form action="/?page=admin/alert-add" method="post">
+
+							<label for="alert_type">Alert Type:</label>
+							<select class="form-control" name="alert_type">
+								<option value="success">Success</option>
+								<option value="error">Error</option>
+								<option value="info">Info</option>
+								<option value="warning">Warning</option>
+							</select>
+
+							<br>
+
+							<label for="alert_message">Snippet:</label>
+							<textarea class="form-control" cols="100" id="1" name="alert_message" rows="10"></textarea>
+
+							<br>
+
+							<div class="form-group pull-right">
+								<input type="hidden" name="add" value="true">
+								<input class="btn btn-info btn-large" type="submit" value="submit">
+								<a class="btn btn-danger btn-large" href="index.php?page=admin/dashboard" type="button">cancel</a>
+							</div>
+						</form>
+					</div><!-- / pannel body -->
+				</div><!-- / pannel -->
+				<script src="static/js/tinymce/tinymce.min.js"></script>
+				<script>
+					//Initialize TinyMce
+					tinymce.init({
+						selector:'textarea',
+						relative_urls : false,
+						remove_script_host : false,
+						plugins: [
+							"textpattern advlist autolink lists link image charmap print preview anchor",
+							"searchreplace visualblocks code fullscreen jbimages",
+							"insertdatetime media table contextmenu paste textcolor"
+						],
+						textpattern_patterns: [
+							{start: '*', end: '*', format: 'italic'},
+							{start: '**', end: '**', format: 'bold'},
+							{start: '#', format: 'h1'},
+							{start: '##', format: 'h2'},
+							{start: '###', format: 'h3'},
+							{start: '####', format: 'h4'},
+							{start: '#####', format: 'h5'},
+							{start: '######', format: 'h6'},
+							{start: '1. ', cmd: 'InsertOrderedList'},
+							{start: '* ', cmd: 'InsertUnorderedList'},
+							{start: '- ', cmd: 'InsertUnorderedList'}
+						],
+						toolbar: "undo redo | styleselect | bold italic | forecolor backcolor | alignleft aligncenter alignright | bullist numlist | link jbimages | mybutton",
+						/* setup : function(ed) {
+							ed.addButton('mybutton', {
+								title : 'Remove TinyMCE',
+								image : 'bs/img/remove.gif',
+								onclick : function remove() {
+									// Add you own code to execute something on click
+								   tinymce.remove('textarea');
+								}
+							});
+						}*/
+					});
+				</script>
+			<!-- /row -->
+
+
+    	  <!-- / admin tab content here -->
+		</div>
+	</div>
+
+
+
+	<?php
+} else {
+    // the user is not logged in. you can do whatever you want here.
+    // for demonstration purposes, we simply show the "you are not logged in" view.
+    header("Location: ?page=login");
+}
+?>

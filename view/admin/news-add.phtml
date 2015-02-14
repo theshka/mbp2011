@@ -1,0 +1,165 @@
+<?php
+// create a login object. when this object is created, it will do all login/logout stuff automatically
+// so this single line handles the entire login process. in consequence, you can simply ...
+$login = new Login();
+
+// ... ask if we are logged in here:
+if ($login->isUserLoggedIn() == true) {
+    // the user is logged in. you can do whatever you want here.
+	?>
+
+	<div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <!-- admin tab content here -->
+           <div class="row">
+				<?php
+				if (isset($_POST['add']) == "true") {
+					/**
+					 * Sanitize user data
+					 */
+					$item_image = $database->filter( $_POST['item_image'] );
+					$item_url = $database->escape( $_POST['item_url'] );
+					$item_title = $database->filter( $_POST['item_title'] );
+					$item_author = $database->escape( $_POST['item_author'] );
+					$item_author_url = $database->escape( $_POST['item_author_url'] );
+					$item_date = $database->escape( $_POST['item_date'] );
+					$item_snippet = $database->escape( $_POST['item_snippet'] );
+
+
+					//gets the current date...
+					$date = date("Y-m-d h:i:sA");
+
+					if (!$item_title or !$item_snippet) {
+						echo
+						'
+						<div class="alert alert-danger">
+							News not added, you must enter a title and body!
+						</div>
+						';
+					}
+					 else {
+
+						/**
+						 * Inserting data
+						 */
+						//The fields and values to insert
+						$names = array(
+							'item_image' => $item_image,
+							'item_url' => $item_url,
+							'item_title' => $item_title,
+							'item_author' => $item_author,
+							'item_author_url' => $item_author_url,
+							'item_date' => $item_date,
+							'item_snippet' => $item_snippet
+						);
+						$add_query = $database->insert( 'news_', $names );
+						if( $add_query )
+						{
+							//success...
+							echo
+							'
+							<div class="alert alert-success">
+								News was successfully added! Redirecting you to the news manager...
+							</div>
+							<script>setTimeout(function () {window.location.href = "index.php?page=admin/news-manage";}, 1000);</script>
+							';
+						}
+
+						$last = $database->lastid();
+					}
+				}
+				?>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<strong>New Post:</strong>
+					</div><!-- / pannel heading -->
+
+					<div class="panel-body" style="color:#000;">
+						<form action="/?page=admin/news-add" method="post">
+
+							<label for="item_image">Image URL:</label>
+							<input class="form-control" maxlength="512" name="item_image" size="40" type="text" value=""><br>
+
+							<label for="item_title">Post URL:</label>
+							<input class="form-control" maxlength="512" name="item_url" size="120" type="text" value=""><br>
+
+							<label for="item_title">Title:</label>
+							<input class="form-control" maxlength="160" name="item_title" size="40" type="text" value=""><br>
+
+							<label for="item_author">Author:</label>
+							<input class="form-control" maxlength="60" name="item_author" size="40" type="text" value=""><br>
+
+							<label for="item_author_url">Author URL:</label>
+							<input class="form-control" maxlength="512" name="item_author_url" size="120" type="text" value=""><br>
+
+							<label for="item_date">Date: (YYYY-MM-DD HH:MM:SS)</label>
+							<input class="form-control" maxlength="80" name="item_date" size="40" type="text" value=""><br>
+
+							<label for="item_snippet">Snippet:</label>
+							<textarea class="form-control" cols="100" id="1" name="item_snippet" rows="10"></textarea>
+
+							<br>
+
+							<div class="form-group pull-right">
+								<input type="hidden" name="add" value="true">
+								<input class="btn btn-info btn-large" type="submit" value="submit">
+								<a class="btn btn-danger btn-large" href="index.php?page=admin/dashboard" type="button">cancel</a>
+							</div>
+						</form>
+					</div><!-- / pannel body -->
+				</div><!-- / pannel -->
+				<script src="static/js/tinymce/tinymce.min.js"></script>
+				<script>
+					//Initialize TinyMce
+					tinymce.init({
+						selector:'textarea',
+						relative_urls : false,
+						remove_script_host : false,
+						plugins: [
+							"textpattern advlist autolink lists link image charmap print preview anchor",
+							"searchreplace visualblocks code fullscreen jbimages",
+							"insertdatetime media table contextmenu paste textcolor"
+						],
+						textpattern_patterns: [
+							{start: '*', end: '*', format: 'italic'},
+							{start: '**', end: '**', format: 'bold'},
+							{start: '#', format: 'h1'},
+							{start: '##', format: 'h2'},
+							{start: '###', format: 'h3'},
+							{start: '####', format: 'h4'},
+							{start: '#####', format: 'h5'},
+							{start: '######', format: 'h6'},
+							{start: '1. ', cmd: 'InsertOrderedList'},
+							{start: '* ', cmd: 'InsertUnorderedList'},
+							{start: '- ', cmd: 'InsertUnorderedList'}
+						],
+						toolbar: "undo redo | styleselect | bold italic | forecolor backcolor | alignleft aligncenter alignright | bullist numlist | link jbimages | mybutton",
+						/* setup : function(ed) {
+							ed.addButton('mybutton', {
+								title : 'Remove TinyMCE',
+								image : 'bs/img/remove.gif',
+								onclick : function remove() {
+									// Add you own code to execute something on click
+								   tinymce.remove('textarea');
+								}
+							});
+						}*/
+					});
+				</script>
+			<!-- /row -->
+
+
+    	  <!-- / admin tab content here -->
+		</div>
+	</div>
+
+
+
+	<?php
+} else {
+    // the user is not logged in. you can do whatever you want here.
+    // for demonstration purposes, we simply show the "you are not logged in" view.
+    header("Location: ?page=login");
+}
+?>

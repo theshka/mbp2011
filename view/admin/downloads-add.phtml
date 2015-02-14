@@ -1,0 +1,114 @@
+<?php
+// create a login object. when this object is created, it will do all login/logout stuff automatically
+// so this single line handles the entire login process. in consequence, you can simply ...
+$login = new Login();
+
+// ... ask if we are logged in here:
+if ($login->isUserLoggedIn() == true) 
+{
+    // the user is logged in. you can do whatever you want here.
+	?>
+
+	<div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <!-- admin tab content here -->
+          
+			 <div class="row">
+				<?php
+				if (isset($_POST['add']) == "true") {
+					/**
+					 * Sanitize user data
+					 */					
+					$filename = $database->escape($_POST['filename']);
+					$description = $database->escape($_POST['description']);
+					//$md5checksum = $database->escape($_POST['md5checksum']);
+					$url = $database->escape($_POST['url']);
+
+					//gets the current date...
+					$date = date("Y-m-d h:i:sA");
+
+					if (!$filename or !$description or !$url) {
+						echo
+						'
+						<div class="alert alert-danger">
+							Download not added, you must enter a title and body!
+						</div>
+						';
+					}
+					 else {
+
+						/**
+						 * Inserting data
+						 */
+						//The fields and values to insert
+						$names = array(
+							'filename' => $filename,
+							'description' => $description,
+							'size' => remoteFilesize($url),
+							'md5checksum' => calculateMD5($url),
+							'date' => $date,
+							'url' => $url
+						);
+						$add_query = $database->insert( 'downloads', $names );
+						if( $add_query )
+						{
+							//success...
+							echo
+							'
+							<div class="alert alert-success">
+								Download was successfully added! Redirecting you to the downloads manager...
+							</div>
+							<script>setTimeout(function () {window.location.href = "index.php?page=admin/downloads-manage";}, 1000);</script>
+							';
+						}
+
+						$last = $database->lastid();
+					}
+				}
+				?>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<strong>New Download:</strong>
+					</div><!-- / pannel heading -->
+
+					<div class="panel-body" style="color:#000;">
+						<form action="/?page=admin/downloads-add" method="post">
+
+							<label for="item_image">Filename:</label>
+							<input class="form-control" maxlength="256" name="filename" size="40" type="text" value=""><br>
+
+							<label for="item_title">Description:</label>
+							<textarea class="form-control" cols="100" id="1" name="description" rows="2"></textarea>
+
+							<!-- <label for="item_title">MD5 Checksum:</label>
+							<input class="form-control" maxlength="126" name="md5checksum" size="40" type="text" value=""><br> -->
+
+							<label for="item_author">Download URL:</label>
+							<input class="form-control" maxlength="512" name="url" size="40" type="text" value=""><br>							
+
+							<br>
+
+							<div class="form-group pull-right">
+								<input type="hidden" name="add" value="true">
+								<input class="btn btn-info btn-large" type="submit" value="submit" id="submit">
+								<a class="btn btn-danger btn-large" href="index.php?page=admin/downloads-manage" type="button">cancel</a>
+							</div>
+						</form>
+					</div><!-- / pannel body -->
+				</div><!-- / pannel -->
+			<!-- /row -->
+    	  	<!-- / admin tab content here -->
+		</div>
+	</div>
+
+
+
+	<?php
+} 
+else {
+	// the user is not logged in. you can do whatever you want here.
+	// for demonstration purposes, we simply show the "you are not logged in" view.
+	header("Location: ?page=login");
+}
+?>

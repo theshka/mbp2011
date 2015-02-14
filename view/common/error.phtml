@@ -1,0 +1,91 @@
+<div class="container">
+<?php
+    //get error number
+    if (!isset($n))
+    {
+        $n = $GET['n'];
+    }
+
+    //valiate error number
+    if ($n === '400' || $n === '401' || $n === '403' || $n === '404' || $n === '406' || $n === '418' || $n === '500' ) {
+
+        //log error
+        switch ($n) {
+
+            case'400':
+            $msg='Bad Request! Possible corrupted resource';
+            break;
+
+            case'401':
+            $msg='Unauthorized! Blocked access to a resource';
+            break;
+
+            case'403':
+            $msg='Forbidden! Blocked access to a resource';
+            break;
+
+            case'404':
+            $msg='File not found! Possible broken link';
+            break;
+
+            case'406':
+            $msg='Not Acceptable! Your request is ridiculous';
+            break;
+
+            case'418':
+            $msg='I\'m a teapot! You attempt to brew coffee with a teapot';
+            break;
+
+            case'500':
+            $msg='Internal Server Error!';
+            break;
+
+            default:
+            $msg='UNKNOWN! Review logs further';
+            break;
+
+        }
+
+        $referer = getReferer();
+
+        //output error page
+        echo '
+            <!DOCTYPE HTML>
+            <meta charset="UTF-8">
+            <meta http-equiv="refresh" content="10; url=?page=home">
+
+            <script>
+              //window.location.href = "?page=home"
+            </script>
+
+            <title> Oops! ' . $n . ' Error</title>
+
+             <body>
+             <h1>HTTP/1.1 '. $n .' Error</h1>
+             <p>'. $msg .' on page: '. $referer .'</p>
+             <hr>
+             <p>If you are not redirected automatically, click the link to go back to <a href="?page=home">?page=home</a></p>
+             </body>
+        ';
+    }
+    else {
+
+        //output redirect
+        echo '
+            <!DOCTYPE HTML>
+            <meta charset="UTF-8">
+            <meta http-equiv="refresh" content="10; url=?page=home">
+
+            <script>
+              //window.location.href = "?page=home"
+            </script>
+
+            <title> Page Redirection - Error</title>
+
+
+            If you are not redirected automatically, click the link to go back to <a href="?page=home">?page=home</a>
+        ';
+    }
+
+?>
+</div>

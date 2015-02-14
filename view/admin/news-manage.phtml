@@ -1,0 +1,151 @@
+<?php
+
+// create a login object. when this object is created, it will do all login/logout stuff automatically
+// so this single line handles the entire login process. in consequence, you can simply ...
+$login = new Login();
+
+// ... ask if we are logged in here:
+if ($login->isUserLoggedIn() == true) {
+    // the user is logged in. you can do whatever you want here.
+	?>
+
+	<div class="row">
+        <div class="col-md-10 col-md-offset-1">
+        	<!-- admin tab content here -->
+			<div class="news-posts">
+				<?php
+				if(isset($_GET['action'])){
+					switch ($_GET['action']){
+						case 'delete' :
+						/**
+						 * Sanitize user data
+						 */
+						$id = $database->filter($_GET['id']);
+
+						/**
+						 * Deleting data
+						 */
+						$delete = array(
+							'item_id' => $id
+						);
+						$deleted = $database->delete( 'news_', $delete, 1 );
+						if( $deleted )
+						{
+							echo '
+								<div class="alert alert-success">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									Post was successfully deleted!
+								</div>
+							';
+						}
+						break;
+					}
+				}
+
+				//not editing or deleting, show posts...
+
+				$limit = 3; #item per page
+				$page = (int) (!isset($_GET['p'])) ? 1 : $_GET['p'];
+
+				# sql query
+				$sql = "SELECT * FROM `news_` ORDER BY `item_date` DESC";
+
+				# find out query stat point
+				$start = ($page * $limit) - $limit;
+
+				# query for page navigation
+				if( ($database->num_rows($sql)) > ($page * $limit) ){
+					$next = ++$page;
+				}
+
+				$query = $sql . " LIMIT {$start}, {$limit}";
+
+				if ($database->num_rows($query) > 0) {
+
+					//show paginated list
+					$results = $database->get_results( $query );
+					foreach( $results as $row )
+					{
+
+						echo
+						'
+						<!-- Table -->
+						<table class="table news-post">
+							<tr class="active">
+								<td width="80%" style="vertical-align:middle;"> <strong><a href="' . $row['item_url'] . '" target="_BLANK">' . $row['item_title'] . '</a></strong></td>
+								<td width="20%" class="text-right">
+									<a href="?page=admin/news-edit&id=' . $row['item_id'] . '"><button class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-pencil"></span></button></a>
+								</td>
+								<td>
+									<a onClick="return confirm(\'Are you sure you want to delete this item?\');" href="?page=admin/news-manage&action=delete&id=' . $row['item_id'] . '"><button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button></a>
+								</td>
+							</tr>
+							<tr>
+								<td width="85%">';
+								if ($row['item_image'] != ''){
+									echo '<img class="img-responsive" src="' . $row['item_image'] . '" alt="' . $row['item_title'] . '" width="900" height="300">';
+								}
+						echo'
+								<br>' . $row['item_snippet'] . '</td>
+								<td colspan="2" width="15%" class="text-right">
+									<span>By: <a href="' . $row['item_author_url'] . '" target="_BLANK">' . $row['item_author'] . '</a></span><br>
+									<span class="glyphicon glyphicon-time"></span> &nbsp;' . timeAgo(strtotime($row['item_date'])) . '</span>
+								</td>
+							</tr>
+						</table>
+						';
+					}
+
+				}
+				else{
+					//No posts
+					echo '<div class="alert alert-danger"> There are no news entries to manage. <a href="?page=admin/news-add">Add</a> a post!</div>';
+				}
+
+				//page navigation
+				if (isset($next)) {
+					echo
+					'
+					<div class="news-more">
+						<ul class="pager">
+							<li class="next">
+								<a href="index.php?page=admin/news-manage&p=' . $next . '">Next &rarr;</a>
+							</li>
+						</ul>
+					</div>
+					';
+				}
+				?>
+			</div>
+
+			<script type="text/javascript" src="static/js/jquery.ias.js"></script>
+			<script type="text/javascript">
+			$(document).ready(function() {
+
+				// Infinite Ajax Scroll configuration
+				var ias = jQuery.ias({
+				  container:  '.news-posts',
+				  item:       '.news-post',
+				  pagination: '.news-more',
+				  next:       '.news-more li a',
+				});
+
+				// Add a loader image which is displayed during loading
+				ias.extension(new IASSpinnerExtension());
+
+				// Add a text when there are no more pages left to load
+				ias.extension(new IASNoneLeftExtension({text: '<div class="alert alert-info"> There are no more posts to show! </div>'}));
+
+			});
+			</script>
+			<!-- / admin tab content here -->
+		</div>
+	</div>
+
+	<?php
+} else {
+    // the user is not logged in. you can do whatever you want here.
+    // for demonstration purposes, we simply show the "you are not logged in" view.
+    header("Location: ?page=login");
+}
+?>

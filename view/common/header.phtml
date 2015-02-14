@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!--General Meta-->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="description" content="Let's send Apple a message: Owners of the mbp2011 MacBook Pro line of computers experiencing widespread GPU failures will not be satisfied until our machines are restored to FULL working order through a replacement program at no cost to the users."/>
+        <meta name="keywords" content="mbp2011,mbp 2011,petition,take action,macbook pro,2011,apple,replacement program,computer,discrete,display,freezes,gpu,failure,2011 MacBook Pro 15, Late 2011, Early 2011,graphics,lines" />
+        <link rel="shortcut icon" href="/static/ico/favicon.ico" />
+
+        <!--Facebook OpenGraph Meta-->
+        <meta property="og:locale" content="en_US"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="<?php echo(SITE_NAME); ?> - <?php echo($page_title); ?> - <?php echo(SITE_SLOGAN); ?>"/>
+        <meta property="og:url" content="<?php echo(BASE_URL); ?>"/>
+        <meta property="og:description" content="Let's send Apple a message: Owners of the mbp2011 MacBook Pro line of computers experiencing widespread GPU failures will not be satisfied until our machines are restored to FULL working order through a replacement program at no cost to the users."/>
+        <meta property="og:site_name" content="MacBook Pro 2011 - Take Action!"/>
+        <meta property="og:image" content="http://www.mbp2011.com/wp-content/uploads/2013/09/mbp20111.jpg" />
+
+        <!-- Twitter Cards Meta -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:url" content="<?php echo(BASE_URL); ?>" />
+        <meta name="twitter:title" content="<?php echo(SITE_NAME); ?> - <?php echo($page_title); ?> - <?php echo(SITE_SLOGAN); ?>"/>
+        <meta name="twitter:description" content="Let's send Apple a message: Owners of the mbp2011 MacBook Pro line of computers experiencing widespread GPU failures will not be satisfied until our machines are restored to FULL working order through a replacement program at no cost to the users."/>
+        <meta name="twitter:image" content="http://www.mbp2011.com/wp-content/uploads/2013/09/mbp20111.jpg" />
+
+        <!--Dublin Core Meta -->
+        <meta name="DC.Title" content="mbp2011: 2011 MacBook Pro, GPU Failure">
+        <meta name="DC.Creator" content="Apple Computer Owners">
+        <meta name="DC.Subject" content="Activism, Petition, Consumer Rights">
+        <meta name="DC.Description" content="Owners of the mbp2011 MacBook Pro line of computers experiencing widespread GPU failures will not be satisfied until our machines are restored to FULL working order through a replacement program at no cost to the users.">
+        <meta name="DC.Contributor" content="MBP2011 Community">
+        <meta name="DC.Date" content="2014">
+        <meta name="DC.Type" content="Collection">
+        <meta name="DC.Format" content="Mixed">
+        <meta name="DC.Language" content="EN">
+        <meta name="DC.Language" content="FR">
+        <meta name="DC.Language" content="IT">
+        <meta name="DC.Language" content="DE">
+        <meta name="DC.Language" content="HE">
+        <meta name="DC.Language" content="SV">
+        <meta name="DC.Coverage" content="Worldwide">
+        <meta name="DC.Rights" content="Attribution-NonCommercial 4.0 International">
+
+        <title><?php echo(SITE_NAME); ?> - <?php echo($page_title); ?> - <?php echo(SITE_SLOGAN); ?></title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/css/theme.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="/static/css/magnific-popup.css" rel="stylesheet">
+
+        <!-- Font Awesome -->
+        <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+        <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond./static/js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+        
+        <!-- Core JavaScript
+            ================================================== -->
+        <script src="/static/js/jquery.min.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+        
+	   <?php
+	   	//only track non-admin pages...
+		if ( !preg_match('/admin/', $page) )
+		{
+	   ?>
+        <!-- Google Analytics UA -->
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-48501333-3', 'mbp2011.org');
+            ga('require', 'displayfeatures');
+            ga('send', 'pageview');
+        </script>
+        <?php 
+        }
+        ?>
+    </head>
+
+    <body>
+
+        <div class="navbar-wrapper cbp-af-header">
+
+            <!-- Fixed navbar -->
+            <div class="navbar cbp-af-inner" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        </button>
+                        <h1><a class="navbar-brand scroll" href="index.php"><?php echo SITE_NAME; ?></a></h1>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a <?php if($page == "action"){?> class="forum" <?php } ?> href="/?page=action">Take Action</a></li>
+                            <li><a <?php if($page == "news"){?> class="forum" <?php } ?> href="/?page=news">News</a></li>
+                            <li><a <?php if($page == "breakfree"){?> class="forum" <?php } ?> href="/?page=breakfree">Photos</a></li>
+
+                            <?php
+                            if ($page=="info")
+                            {
+                                echo '<li><a href="https://people.cam.cornell.edu/~zc227/extras/early2011mbp_graphics.html" class="forum">Close Frame &rarr;</a></li>';
+                            }
+                            else
+                            {
+                                echo '<li><a href="/?page=info">Info</a></li>';
+                            }
+                            ?>
+
+                            <?php
+                            if ($login->isUserLoggedIn() == true)
+                            {
+                                echo
+                                '
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                        <img src="'. avatar($_SESSION['user_email']) .'" alt="grAvatar" height="25px" width="25px" />
+                                        Hi, ' . ucfirst($_SESSION['user_name']) . '!
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="/?page=admin/dashboard" rel="nofollow">Dashboard</a></li>
+                                        <li><a href="/?page=login&logout" rel="nofollow">Logout</a></li>
+                                    </ul>
+                                </li>
+                                ';
+                            }
+                            else
+                            {
+                                if($page == "login")
+                                {
+                                     echo '<li><a class="forum" href="/?page=admin/dashboard" rel="nofollow"><span class="glyphicon glyphicon-lock"></span></a></li>';
+                                }
+                                else
+                                {
+                                    echo '<li><a href="/?page=admin/dashboard" rel="nofollow"><span class="glyphicon glyphicon-lock"></span></a></li>';
+                                }
+                            }
+                            ?>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="container-fluid">
+            <section class="main">
+            <?php /* $keywords = extractCommonWords(file_get_contents( '/home/mbp2011/public_html/view/' . $page . '.phtml' ) ); print_r($keywords); */?>

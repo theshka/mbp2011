@@ -1,0 +1,161 @@
+<div class="container">
+    <?php
+    /**
+     * A simple, clean and secure PHP Login Script / MINIMAL VERSION
+     * For more versions (one-file, advanced, framework-like) visit http://www.php-login.net
+     *
+     * Uses PHP SESSIONS, modern password-hashing and salting and gives the basic functions a proper login system needs.
+     *
+     * @author Panique
+     * @link https://github.com/panique/php-login-minimal/
+     * @license http://opensource.org/licenses/MIT MIT License
+     */
+
+    // checking for minimum PHP version
+    if (version_compare(PHP_VERSION, '5.3.3', '<')) {
+        exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");
+    } else if (version_compare(PHP_VERSION, '5.5.0', '<')) {
+        // if you are using PHP 5.3 or PHP 5.4 you have to include the password_api_compatibility_library.php
+        // (this library adds the PHP 5.5 password hashing functions to older versions of PHP)
+        require_once("lib/password_compatibility_library.php");
+    }
+
+    //Login already instanced
+    //$Login = new Login();
+
+    // ... ask if we are logged in here:
+    if ($login->isUserLoggedIn() == true) {
+        // the user is logged in. you can do whatever you want here.
+        // for demonstration purposes, we simply show the "you are logged in" view.
+        ?>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1">
+					
+					<h2>Send Message</h2>
+					
+					<hr>
+					
+					<?php
+						if ( isset($_POST['submit']) == 'submit' )
+						{
+							// from the form
+							$email = trim(cleanInput($_POST['email']));
+							$message = htmlentities($_POST['message']);
+							$subject = trim(cleanInput($_POST['subject']));
+							
+							//send to multiple?
+							
+							if ( checkEmail($email) == TRUE )
+							{
+								//Create a new PHPMailer instance
+								$mail = new PHPMailer;
+	
+								// Set PHPMailer to use the sendmail transport
+								$mail->isSendmail();
+	
+								//Tell PHPMailer to use SMTP
+								//$mail->isSMTP();
+								//Enable SMTP debugging
+								// 0 = off (for production use)
+								// 1 = client messages
+								// 2 = client and server messages
+								//$mail->SMTPDebug = 2;
+								//Ask for HTML-friendly debug output
+								//$mail->Debugoutput = 'html';
+								//Set the hostname of the mail server
+								//$mail->Host = "mail.example.com";
+								//Set the SMTP port number - likely to be 25, 465 or 587
+								//$mail->Port = 25;
+								//Whether to use SMTP authentication
+								//$mail->SMTPAuth = true;
+								//Username to use for SMTP authentication
+								//$mail->Username = "yourname@example.com";
+								//Password to use for SMTP authentication
+								//$mail->Password = "yourpassword";
+	
+								//Set who the message is to be sent from
+								$mail->setFrom($_SESSION['user_email'], SITE_NAME);
+	
+								//Set who the message is to be sent to
+								$mail->addAddress($email);
+								
+								//CC 
+								$mail->addCC(SITE_EMAIL);
+								
+								//Set the subject line
+								$mail->Subject = $subject;
+	
+								//Read an HTML message body from an external file, convert referenced images to embedded,
+								//convert HTML into a basic plain-text alternative body
+								$Parsedown = new Parsedown();
+	
+								$mail->msgHTML($Parsedown->text($message));
+	
+								//Replace the plain text body with one created manually
+								//$mail->AltBody = 'This is a plain-text message body';
+	
+								//Attach an image file
+								//$mail->addAttachment('images/phpmailer_mini.png');
+	
+								//send the message, check for errors
+								if (!$mail->send()) {
+									echo bsAlert('error', 'Mailer Error: ' . $mail->ErrorInfo);
+								} else {
+									echo bsAlert('success', 'Message sent!');
+								}
+							}
+							else
+							{
+								echo bsAlert('error', 'INVALID EMAIL ENTERED.');
+							}
+							
+						}
+					?>
+		
+					<form action="" method="post" class="form">
+						<div class="form-group">
+							<label for="name">From:</label>
+							<input type="text" name="name" id="name" value="<?php echo $_SESSION['user_email']; ?>" readonly="" class="form-control" />
+						</div>
+		
+						<div class="form-group">
+							<label for="Email">To:</label>
+							<input type="text" name="email" id="email" class="form-control" />
+						</div>
+						
+						<div class="form-group">
+							<label for="Subject">Subject:</label>
+							<input type="text" name="subject" id="subject" class="form-control" />
+						</div>
+		
+						<div class="form-group">
+							<label for="Message">Message:</label> <small>* <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" rel="nofollow" target="_BLANK">Markdown</a> Supported *</small><br />
+							<textarea name="message" rows="10" cols="20" id="message" class="form-control"></textarea>
+						</div>
+		
+						<br>
+		
+						<div class="form-group pull-right">
+							<input type="submit" name="submit" value="Submit" class="btn btn-default" />
+						</div>
+					</form>
+					<br>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+        <?php
+
+    } else {
+        // the user is not logged in. you can do whatever you want here.
+        // for demonstration purposes, we simply show the "you are not logged in" view.
+        header("location: ?page=login");
+    }
+    ?>
+</div>

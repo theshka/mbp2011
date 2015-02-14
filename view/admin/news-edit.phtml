@@ -1,0 +1,183 @@
+<?php
+// create a login object. when this object is created, it will do all login/logout stuff automatically
+// so this single line handles the entire login process. in consequence, you can simply ...
+$login = new Login();
+
+// ... ask if we are logged in here:
+if ($login->isUserLoggedIn() == true) {
+    // the user is logged in. you can do whatever you want here.
+	?>
+
+	<div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <!-- admin tab content here -->
+
+			<?php
+			if (isset($_POST['edit']) == "true") {
+				/**
+				 * Sanitize user data
+				 */
+				$item_id = $database->filter( $_POST['item_id'] );
+				$item_image = $database->filter( $_POST['item_image'] );
+				$item_url = $database->escape( $_POST['item_url'] );
+				$item_title = $database->filter( $_POST['item_title'] );
+				$item_author = $database->escape( $_POST['item_author'] );
+				$item_author_url = $database->escape( $_POST['item_author_url'] );
+				$item_date = $database->escape( $_POST['item_date'] );
+				$item_snippet = $database->escape( $_POST['item_snippet'] );
+
+				if (!$item_title or !$item_snippet) {
+
+					echo
+					'
+					<div class="alert alert-danger">
+						News not added, you must enter a title and body!
+					</div>
+					';
+
+				}
+				else {
+
+					/**
+					 * Updating data
+					 */
+					//Fields and values to update
+					$update = array(
+						'item_image' => $item_image,
+						'item_url' => $item_url,
+						'item_title' => $item_title,
+						'item_author' => $item_author,
+						'item_author_url' => $item_author_url,
+						'item_date' => $item_date,
+						'item_snippet' => $item_snippet
+					);
+					//Add the WHERE clauses
+					$where_clause = array(
+						'item_id' => $item_id
+					);
+					$updated = $database->update( 'news_', $update, $where_clause, 1 );
+					if( $updated )
+					{
+						echo
+						'
+						<div class="alert alert-success">
+							Your changes were successful! Redirecting you to the news manager...
+						</div>
+						<script>setTimeout(function () {window.location.href = "index.php?page=admin/news-manage";}, 1000);</script>
+						';
+					}
+				}
+			}
+			elseif (isset($_GET['id'])) {
+				/**
+				 * Sanitize user data
+				 */
+				$item_id = $database->filter( $_GET['id'] );
+
+				/**
+				 * Retrieving a single row of data
+				 */
+				$query = "SELECT item_id, item_image, item_url, item_title, item_author, item_author_url, item_date, item_snippet FROM news_ WHERE `item_id` = $item_id";
+				if( $database->num_rows( $query ) > 0 )
+				{
+					list( $item_id, $item_image, $item_url, $item_title, $item_author, $item_author_url, $item_date, $item_snippet) = $database->get_row( $query );
+
+					?>
+					<div class="row">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<strong>Edit Post</strong>
+							</div><!-- / pannel heading -->
+
+							<div class="panel-body" style="color:#000;">
+								<form action="/?page=admin/news-edit" method="post">
+
+									<label for="item_image">Image URL:</label>
+									<input class="form-control" maxlength="512" name="item_image" size="40" type="text" value="<?php echo $item_image; ?>"><br>
+
+									<label for="item_title">Post URL:</label>
+									<input class="form-control" maxlength="512" name="item_url" size="120" type="text" value="<?php echo $item_url; ?>"><br>
+
+									<label for="item_title">Title:</label>
+									<input class="form-control" maxlength="160" name="item_title" size="40" type="text" value="<?php echo $item_title; ?>"><br>
+
+									<label for="item_author">Author:</label>
+									<input class="form-control" maxlength="60" name="item_author" size="40" type="text" value="<?php echo $item_author; ?>"><br>
+
+									<label for="item_author_url">Author URL:</label>
+									<input class="form-control" maxlength="512" name="item_author_url" size="120" type="text" value="<?php echo $item_author_url; ?>"><br>
+
+									<label for="item_date">Date: (YYYY-MM-DD HH:MM:SS)</label>
+									<input class="form-control" maxlength="80" name="item_date" size="40" type="text" value="<?php echo $item_date; ?>"><br>
+
+									<label for="item_snippet">Snippet:</label>
+									<textarea class="form-control" cols="100" id="1" name="item_snippet" rows="10"><?php echo $item_snippet; ?></textarea>
+
+									<br>
+
+									<div class="form-group pull-right">
+										<input type="hidden" name="edit" value="true">
+										<input type="hidden" name="item_id" value="<?php echo $item_id; ?>">
+										<input class="btn btn-info btn-large" type="submit" value="submit">
+										<a class="btn btn-danger btn-large" href="index.php?page=admin/news-manage" type="button">cancel</a>
+									</div>
+								</form>
+
+
+							</div><!-- / pannel body -->
+						</div><!-- / pannel -->
+					<!-- /row -->
+					<script src="www/js/tinymce/tinymce.min.js"></script>
+					<script>
+					//Initialize TinyMce
+					tinymce.init({
+						selector:'textarea',
+						relative_urls : false,
+						remove_script_host : false,
+						plugins: [
+							"textpattern advlist autolink lists link image charmap print preview anchor",
+							"searchreplace visualblocks code fullscreen",
+							"insertdatetime media table contextmenu paste textcolor"
+						],
+						toolbar: "undo redo | styleselect | bold italic | forecolor backcolor | alignleft aligncenter alignright | bullist numlist | link jbimages | mybutton",
+						/* setup : function(ed) {
+							ed.addButton('mybutton', {
+								title : 'Remove TinyMCE',
+								image : 'bs/img/remove.gif',
+								onclick : function remove() {
+									// Add you own code to execute something on click
+								   tinymce.remove('textarea');
+								}
+							});
+						}*/
+					});
+					</script>
+					<?php
+				}
+			}
+			else {
+				//can't view directly.
+				echo
+				'
+				<div class="alert alert-danger">
+					You have not selected any posts to edit! Redirecting...
+				</div>
+				<script>setTimeout(function () {window.location.href = "index.php?page=admin/news-manage";}, 2000);</script>
+				';
+			}
+			?>
+
+
+    	  <!-- / admin tab content here -->
+		</div>
+	</div>
+
+
+
+	<?php
+} else {
+    // the user is not logged in. you can do whatever you want here.
+    // for demonstration purposes, we simply show the "you are not logged in" view.
+    header("Location: ?page=login");
+}
+?>

@@ -1,0 +1,142 @@
+<div class="container">
+    <?php
+    /**
+     * A simple, clean and secure PHP Login Script / MINIMAL VERSION
+     * For more versions (one-file, advanced, framework-like) visit http://www.php-login.net
+     *
+     * Uses PHP SESSIONS, modern password-hashing and salting and gives the basic functions a proper login system needs.
+     *
+     * @author Panique
+     * @link https://github.com/panique/php-login-minimal/
+     * @license http://opensource.org/licenses/MIT MIT License
+     */
+
+    // checking for minimum PHP version
+    if (version_compare(PHP_VERSION, '5.3.3', '<')) {
+        exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");
+    } else if (version_compare(PHP_VERSION, '5.5.0', '<')) {
+        // if you are using PHP 5.3 or PHP 5.4 you have to include the password_api_compatibility_library.php
+        // (this library adds the PHP 5.5 password hashing functions to older versions of PHP)
+        require_once("lib/password_compatibility_library.php");
+    }
+
+    //Login already instanced
+    //$Login = new Login();
+
+    // ... ask if we are logged in here:
+    if ($login->isUserLoggedIn() == true) {
+        // the user is logged in. you can do whatever you want here.
+        // for demonstration purposes, we simply show the "you are logged in" view.
+        ?>
+
+		<div class="container">
+			<h2>Community</h2>
+					
+			<hr>
+			
+			<div class="row well"> 
+				<div class="col-md-12">		
+					<div class="users">       
+						 <table id="mytable" class="table table-hover">
+							<thead>				
+								<th>ID</th>
+								<th>Username</th>
+								<th>Email</th>
+								<th>Source</th>
+								<th>IP</th>
+								<th>Date</th>
+							</thead>
+							<tbody>
+							<?php
+							/**
+							 * Retrieve results of a standard query
+							 */
+							$limit = 25; #item per page
+							$page = (int) (!isset($_GET['p'])) ? 1 : $_GET['p'];
+			
+							# sql query
+							$sql = "SELECT * FROM `community` ORDER BY `id` DESC";
+			
+							# find out query stat point
+							$start = ($page * $limit) - $limit;
+			
+							# query for page navigation
+							if( ($database->num_rows($sql)) > ($page * $limit) ){
+								$next = ++$page;
+							}
+			
+							$query = $sql . " LIMIT {$start}, {$limit}";
+			
+							if ($database->num_rows($query) > 0) {
+			
+								//show paginated list
+								$results = $database->get_results( $query );
+								foreach( $results as $row )
+								{
+									echo'
+									<tr class="users-list">
+										<td>' . $row['id'] . '</td>
+										<td>' . $row['name'] . '</td>
+										<td>' . $row['email'] . '</td>
+										<td>' . $row['source'] . '</td>
+										<td>' . $row['ip'] . '</td>
+										<td>' . $row['date'] .'</td>
+									</tr>
+									';
+								}
+								
+								//page navigation
+								if (isset($next)) {
+									echo
+									'
+									<div class="users-more">
+										<ul class="pager">
+											<li class="next">
+												<a href="index.php?page=admin/community&p=' . $next . '">Next &rarr;</a>
+											</li>
+										</ul>
+									</div>
+									';
+								}
+							}
+							else {
+								//No users to show
+								echo '<div class="alert alert-danger"> There are no community members to show!</div>';
+							}
+							?>
+							</tbody>
+						</table>
+        				</div>
+        			</div>
+        		</div>
+        	</div>
+        	
+        	<script type="text/javascript">
+		$(document).ready(function() {
+
+			// Infinite Ajax Scroll configuration
+			var ias = jQuery.ias({
+			  container:  '.users',
+			  item:       '.users-list',
+			  pagination: '.users-more',
+			  next:       '.users-more li a',
+			});
+
+			// Add a loader image which is displayed during loading
+			ias.extension(new IASSpinnerExtension());
+
+			// Add a text when there are no more pages left to load
+			//ias.extension(new IASNoneLeftExtension({text: '<div class="alert alert-info"> There are no more posts to show! </div>'}));
+
+		});
+		</script>
+        
+        <?php
+
+    } else {
+        // the user is not logged in. you can do whatever you want here.
+        // for demonstration purposes, we simply show the "you are not logged in" view.
+        header("location: ?page=login");
+    }
+    ?>
+</div>

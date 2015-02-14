@@ -1,0 +1,92 @@
+<div class="container">
+    <div class="row">
+
+
+            <?php
+            /**
+             * A simple, clean and secure PHP Login Script / MINIMAL VERSION
+             * For more versions (one-file, advanced, framework-like) visit http://www.php-login.net
+             *
+             * Uses PHP SESSIONS, modern password-hashing and salting and gives the basic functions a proper login system needs.
+             *
+             * @author Panique
+             * @link https://github.com/panique/php-login-minimal/
+             * @license http://opensource.org/licenses/MIT MIT License
+             */
+
+            // checking for minimum PHP version
+            if (version_compare(PHP_VERSION, '5.3.3', '<')) {
+                exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");
+            } else if (version_compare(PHP_VERSION, '5.5.0', '<')) {
+                // if you are using PHP 5.3 or PHP 5.4 you have to include the password_api_compatibility_library.php
+                // (this library adds the PHP 5.5 password hashing functions to older versions of PHP)
+                require_once("lib/password_compatibility_library.php");
+            }
+
+            //Instance login
+            //$login = new Login();
+
+            // ... ask if we are logged in here:
+            if ($login->isUserLoggedIn() == true)
+            {
+                // the user is logged in. you can do whatever you want here.
+                // for demonstration purposes, we simply show the "you are logged in" view.
+                header("location: ?page=admin/dashboard");
+            }
+            else
+            {
+                    // the user is not logged in. you can do whatever you want here.
+                    // for demonstration purposes, we simply show the "you are not logged in" view.
+            ?>
+
+            <!-- login form box -->
+            <br>
+            <div class="row">
+                <h1>Login</h1>
+            </div>
+
+            <?php
+            // show potential errors / feedback (from login object)
+            if (isset($login)) {
+                if ($login->errors) {
+                    foreach ($login->errors as $error) {
+                        echo '<div class="row">' . bsAlert('error', $error) . '</div>';
+                    }
+                }
+                if ($login->messages) {
+                    foreach ($login->messages as $message) {
+                        echo '<div class="row">' . bsAlert('success', $message) . '</div>';
+                    }
+                }
+            }
+            ?>
+
+            <div class="row">
+                <form method="post" action="?page=login" name="loginform" class="form">
+
+                    <div class="form-group">
+                        <label for="login_input_username">Username</label>
+                        <input id="login_input_username" class="login_input form-control" type="text" name="user_name" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login_input_password">Password</label>
+                        <input id="login_input_password" class="login_input form-control" type="password" name="user_password" autocomplete="off" required />
+                    </div>
+
+                    <div class="form-group pull-right">
+                        <input type="submit"  name="login" value="Log in" class="btn btn-default" />
+                    </div>
+
+                </form>
+
+            </div>
+
+            <?php
+            }
+            ?>
+
+    </div>
+</div>
+
+<br><br>

@@ -1,0 +1,16 @@
+# robots.txt
+User-agent: *
+Disallow: 
+Disallow: /view/
+Disallow: /static/
+Disallow: /lib/
+Disallow: /func/
+Disallow: /stats/
+Disallow: /info/
+Disallow: /breakfree/
+Disallow: /?page=login
+Disallow: /?page=admin/dashboard
+Disallow: config.php
+
+Disallow: robots.txt
+Sitemap: http://mbp2011.org/sitemap.xml

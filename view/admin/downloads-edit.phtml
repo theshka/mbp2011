@@ -1,0 +1,149 @@
+<?php
+// create a login object. when this object is created, it will do all login/logout stuff automatically
+// so this single line handles the entire login process. in consequence, you can simply ...
+$login = new Login();
+
+// ... ask if we are logged in here:
+if ($login->isUserLoggedIn() == true) {
+    // the user is logged in. you can do whatever you want here.
+	?>
+
+	<div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <!-- admin tab content here -->
+
+			<?php
+			if (isset($_POST['edit']) == "true") {
+				/**
+				 * Sanitize user data
+				 */	
+				$id = $database->escape( $_POST['id'] );				
+				$filename = $database->escape($_POST['filename']);
+				$description = $database->escape($_POST['description']);
+				//$md5checksum = $database->escape($_POST['md5checksum']);
+				$url = $database->escape($_POST['url']);
+				
+				//gets the current date...
+				$date = date("Y-m-d h:i:sA");
+				
+				if (!$filename or !$description or !$url) {
+
+					echo
+					'
+					<div class="alert alert-danger">
+						Download not added, you must enter a filename, description, and URL!
+					</div>
+					';
+
+				}
+				else {
+
+					/**
+					 * Updating data
+					 */
+					//Fields and values to update
+					$update = array(
+						'filename' => $filename,
+						'description' => $description,
+						'size' => remoteFilesize($url),
+						//'md5checksum' => $md5checksum,
+						'date' => $date,
+						'url' => $url
+					);
+					//Add the WHERE clauses
+					$where_clause = array(
+						'id' => $id
+					);
+					$updated = $database->update( 'downloads', $update, $where_clause, 1 );
+					if( $updated )
+					{
+						echo
+						'
+						<div class="alert alert-success">
+							Your changes were successful! Redirecting you to the downloads manager...
+						</div>
+						<script>setTimeout(function () {window.location.href = "index.php?page=admin/downloads-manage";}, 1000);</script>
+						';
+					}
+				}
+			}
+			elseif ( isset($_GET['id']) && $_GET['id'] != '' ) {
+				/**
+				 * Sanitize user data
+				 */
+				$id = $database->filter( $_GET['id'] );
+
+				/**
+				 * Retrieving a single row of data
+				 */
+				$query = "SELECT id, filename, description, date, md5checksum, downloaded, url FROM downloads WHERE `id` = $id";
+				if( $database->num_rows( $query ) > 0 )
+				{
+					list( $id, $filename, $description, $date, $md5checksum, $downloaded, $url) = $database->get_row( $query );
+
+					?>
+					<div class="row">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<strong>Edit Download</strong>
+							</div><!-- / pannel heading -->
+
+							<div class="panel-body" style="color:#000;">
+								<form action="/?page=admin/downloads-edit" method="post">
+
+									<label for="item_image">Filename:</label>
+									<input class="form-control" maxlength="256" name="filename" size="40" type="text" value="<?php echo $filename; ?>"><br>
+			
+									<label for="item_title">Description:</label>
+									<textarea class="form-control" cols="100" id="1" name="description" rows="2"><?php echo $description; ?></textarea>
+			
+									<!--<label for="item_title">MD5 Checksum:</label>
+									<input class="form-control" maxlength="126" name="md5checksum" size="40" type="text" readyonly="" value="<?php echo $md5checksum; ?>"><br>-->
+			
+									<label for="item_author">Download URL:</label>
+									<input class="form-control" maxlength="512" name="url" size="40" type="text" value="<?php echo $url; ?>"><br>							
+
+									<br>
+
+									<div class="form-group pull-right">
+										<input type="hidden" name="edit" value="true">
+										<input type="hidden" name="id" value="<?php echo $id; ?>">
+										<input class="btn btn-info btn-large" type="submit" value="submit">
+										<a class="btn btn-danger btn-large" href="index.php?page=admin/downloads-manage" type="button">cancel</a>
+									</div>
+								</form>
+
+
+							</div><!-- / pannel body -->
+						</div><!-- / pannel -->
+					<!-- /row -->
+					
+					<?php
+				}
+			}
+			else {
+				//can't view directly.
+				echo
+				'
+				<div class="alert alert-danger">
+					You have not selected any posts to edit! Redirecting...
+				</div>
+				<script>setTimeout(function () {window.location.href = "index.php?page=admin/downloads-manage";}, 2000);</script>
+				';
+			}
+			?>
+
+
+    	  <!-- / admin tab content here -->
+		</div>
+	</div>
+
+
+
+	<?php
+} else {
+    // the user is not logged in. you can do whatever you want here.
+    // for demonstration purposes, we simply show the "you are not logged in" view.
+    header("Location: ?page=login");
+}
+?>

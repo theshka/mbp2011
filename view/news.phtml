@@ -1,0 +1,97 @@
+<div class="container">
+	<div class="row" id="testimonials">
+		<div class="col-md-10 col-md-offset-1">
+			<div id="testimonials-inner"></div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<div class="owl-carousel" id="owl-example">
+				<?php
+					$sql= "SELECT * FROM `news_` ORDER BY `item_date` DESC";
+					$result = $database->get_results($sql);
+					foreach ( $result as $row )
+					{
+						echo '
+						<div class="owl-item item">
+						   <!-- item_image -->
+						   <a href="' . $row['item_url'] . '" target="_BLANK"><img src="' . $row['item_image'] . '" class="media img-thumbnail" alt="' . $row['item_title'] . '" /></a>
+			
+						   <!-- item_title/item_url -->
+						   <span class="post-title">
+							  <strong>
+								 <a href="' . $row['item_url'] . '" target="_BLANK" onclick="">
+									' . $row['item_title'] . '
+								 </a>
+							  </strong>
+						   </span>
+			
+						   <div class="content">
+							  <div class="author text-muted">
+								 By: <strong><a href="' . $row['item_author_url'] . '" target="_BLANK">' . $row['item_author'] . '</a></strong> | ' . timeAgo(strtotime($row['item_date'])) . '
+						';
+						
+								
+						// ... ask if we are logged in here:
+						if ($login->isUserLoggedIn() == true) {
+							echo'
+								<span class="btn-group pull-right">
+									<button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><span class="glyphicon glyphicon-chevron-down"></span></button>
+									<ul class="dropdown-menu">
+										<li>
+											<a href="index.php?page=admin/news-edit&id=' . $row['item_id'] . '"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+										</li>
+									</ul>
+								</span>
+							';
+						}
+				 
+						echo '
+							  </div>
+							  <hr class="owlArticleHR" />
+							  <p>
+								 "
+						';
+			
+								 $previewLength = 50;
+			
+								 if (strlen($row['item_snippet']) > $previewLength)
+								 {
+									$preview= truncate($row['item_snippet'],
+									$length = $previewLength,
+									$ending='...<a href="' . $row['item_url'] . '" target="_BLANK"> Read more</a>', $exact = false, $considerHtml = true);
+			
+									echo $preview;
+								 }
+								 else
+								 {
+									echo $row['item_snippet'];
+								 }
+			
+						echo'
+								 "
+							  </p>
+						   </div>
+						</div>
+						';
+					}
+				 ?>
+			</div>
+		</div>
+	</div>
+	
+	<br>
+	<hr class="darkhr">
+
+	<div class="row">
+		<div class="col-md-12">
+			<p>
+				<h2>More News...</h2>
+				<script src="http://feeds.feedburner.com/2011MacbookPro-GoogleNews?format=sigpro" type="text/javascript" ></script>
+				<small><p>Subscribe to RSS headline updates from: <a href="http://feeds.feedburner.com/2011MacbookPro-GoogleNews" target="_BLANK">#MBP2011</a></small>
+			
+			</p>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,180 @@
+<?php
+
+// create a login object. when this object is created, it will do all login/logout stuff automatically
+// so this single line handles the entire login process. in consequence, you can simply ...
+$login = new Login();
+
+// ... ask if we are logged in here:
+if ($login->isUserLoggedIn() == true) {
+    // the user is logged in. you can do whatever you want here.
+	?>
+
+	<div class="row">
+        <div class="col-md-10 col-md-offset-1">
+        	<!-- admin tab content here -->
+        		<h2>Manage Downloads</h2>
+        		
+			<div class="downloads">
+				<?php
+				if(isset($_GET['action'])){
+					switch ($_GET['action']){
+						case 'delete' :
+						/**
+						 * Sanitize user data
+						 */
+						$id = $database->filter($_GET['id']);
+
+						/**
+						 * Deleting data
+						 */
+						$delete = array(
+							'id' => $id
+						);
+						$deleted = $database->delete( 'downloads', $delete, 1 );
+						if( $deleted )
+						{
+							echo '
+								<div class="alert alert-success">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									Download was successfully deleted!
+								</div>
+							';
+						}
+						break;
+					}
+				}
+
+				//not editing or deleting, show posts...
+
+				$limit = 3; #item per page
+				$page = (int) (!isset($_GET['p'])) ? 1 : $_GET['p'];
+
+				# sql query
+				$sql = "SELECT * FROM `downloads` ORDER BY `date` DESC";
+
+				# find out query stat point
+				$start = ($page * $limit) - $limit;
+
+				# query for page navigation
+				if( ($database->num_rows($sql)) > ($page * $limit) ){
+					$next = ++$page;
+				}
+
+				$query = $sql . " LIMIT {$start}, {$limit}";
+
+				if ($database->num_rows($query) > 0) {
+
+					//show paginated list
+					$results = $database->get_results( $query );
+					
+					
+					echo'
+						<div '. /*id="no-more-tables"*/' class="well overflowing">
+							<table class="table table-bordered cf">
+								<thead class="cf">
+									<tr>
+										<th>File Name</th>
+										<th>Description</th>
+										<th>Size</th>
+										<th>Added</th>
+										<th>MD5 Checksum</th>
+										<th>Downloaded</th>
+										<th></th>
+										
+									</tr>
+								</thead>
+								<tbody>
+					';
+					
+					foreach( $results as $row )
+					{
+
+						echo'
+									<tr>
+										<td width="20%" data-title="">' . $row['filename'] . '</td>
+										<td width="25%" data-title="">' . $row['description'] . '</td>
+										<td width="10%" data-title="">' . humanFilesize($row['size']) . '</td>
+										<td width="10%" data-title="">' . timeAgo(strtotime($row['date'])) . '</td>
+										<td width="15%" data-title="">' . $row['md5checksum'] . '</td>
+										<td width="10%" data-title="">' . $row['downloaded'] . ' time(s)</td>
+										<td width="10%" data-title="">
+											<a href="/?func=download&file=' . $row['filename'] . '"><button class="btn btn-info btn-xs"><span class="glyphicon glyphicon-circle-arrow-down"></span></button></a>
+											<a href="?page=admin/downloads-edit&id=' . $row['id'] . '"><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span></button></a>
+											<a onClick="return confirm(\'Are you sure you want to delete this item?\');" href="?page=admin/downloads-manage&action=delete&id=' . $row['id'] . '"><button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button></a>
+										</td>
+									</tr>		
+						';
+					}
+					echo'
+								</tbody>
+							</table>
+						</div>
+					';
+
+				}
+				else{
+					//No posts
+					echo '<div class="alert alert-danger"> There are no downloads to manage. <a href="?page=admin/downloads-add">Add</a> a download!</div>';
+				}
+
+				//page navigation
+				if (isset($next)) {
+					echo
+					'
+					<div class="downloads-more">
+						<ul class="pager">
+							<li class="next">
+								<a href="index.php?page=admin/downloads-manage&p=' . $next . '">Next &rarr;</a>
+							</li>
+						</ul>
+					</div>
+					';
+				}
+				?>
+			</div>
+
+			<script type="text/javascript" src="static/js/jquery.ias.js"></script>
+			<script type="text/javascript">
+			$(document).ready(function() {
+				$("#no-more-tables").each(function() {
+					var nmtTable = $(this);
+					var nmtHeadRow = nmtTable.find("thead tr");
+					
+					nmtTable.find("tbody tr").each(function() {
+						var curRow = $(this);
+						for (var i = 0; i < curRow.find("td").length; i++) {
+							var rowSelector = "td:eq(" + i + ")";
+							var headSelector = "th:eq(" + i + ")";
+							curRow.find(rowSelector).attr('data-title', nmtHeadRow.find(headSelector).html());
+						}
+					});
+				});
+				
+				// Infinite Ajax Scroll configuration
+				var ias = jQuery.ias({
+				  container:  '.downloads',
+				  item:       '.download',
+				  pagination: '.downloads-more',
+				  next:       '.downloads-more li a',
+				});
+
+				// Add a loader image which is displayed during loading
+				ias.extension(new IASSpinnerExtension());
+
+				// Add a text when there are no more pages left to load
+				ias.extension(new IASNoneLeftExtension({text: '<div class="alert alert-info"> There are no more posts to show! </div>'}));
+
+			});
+
+			</script>
+			<!-- / admin tab content here -->
+		</div>
+	</div>
+
+	<?php
+} else {
+    // the user is not logged in. you can do whatever you want here.
+    // for demonstration purposes, we simply show the "you are not logged in" view.
+    header("Location: ?page=login");
+}
+?>

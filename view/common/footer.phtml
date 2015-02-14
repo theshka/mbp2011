@@ -1,0 +1,238 @@
+                <?php
+                    if ( !preg_match('/admin/', $page) && $page !== 'breakfree')
+                    {
+                ?>
+                <hr>
+	
+                <footer id="contact" class="footer">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="col-sm-3 col-md-3">
+                                    <div class="footer-logo">
+                                        <h3>Hosting By:</h3>
+                                        <a href="http://www.totalserversolutions.com" onClick="trackAction(15);" target="_BLANK"><img src="/static/img/tss.png" alt="Hosting Provided By: Total Server Solutions" width="150px"/></a>
+                                   	
+                                   	<hr class="hidden-xs" style="width:11em;; margin-left: 0px;">
+                                   	<br class="visible-xs"><br class="visible-xs">
+                                   	<h3 class="visible-xs">Legal</h3>
+                                    </div>
+     
+							<ul class="list-unstyled" style="margin-left:1em;">
+								<li class="hidden-xs">
+									<a href="#" id="tos">TOS</a>&nbsp;|&nbsp;<a href="#" id="privacy">Privacy Policy</a>
+								</li>
+								<li class="visible-xs">
+									<a href="#" id="tos-small">Terms of Use</a>
+								</li>
+								<li class="visible-xs">
+									<a href="#" id="privacy-small">Privacy Policy</a>
+								</li>
+							</ul>
+                                </div>
+                                <div class="col-sm-3 col-md-3">
+                                    <h3>Top Links</h3>
+                                    <ul class="list-unstyled">
+                                    	<li><a href="#" id="donate">Donate</a></li>
+                                    	<li><a href="#" id="survey">Survey</a></li>
+                                    	<li><a href="/?page=contact" target="_self"">Contact Us!</a></li>
+                                    	<li><a href="/?page=analytics" target="_self" onClick="trackAction(18);">Analytics</a></li>
+                                        <li><a href="/?page=downloads" target="_self">Downloads</a></li>
+                                        <!--<li><a href="http://action.mbp2011.com/forum/" target="_self" onClick="trackAction(20);">Forum</a></li>-->
+                                        <!--<li><a href="http://action.mbp2011.com/users/" target="_self"><i class="glyphicon glyphicon-lock"></i> Webmaster</a></li>-->
+                                    
+                                    </ul>
+                                </div>
+                                <div class="col-sm-3 col-md-3">
+                                    <h3>More Links</h3>
+                                    <ul class="list-unstyled">
+                                    <!--ONEPAGECMS-START-USEFULLINKS-->
+                                    	<li><a href="/breakfree/">breakfree.cc Mirror</a></li>
+                                    	<li><a href="http://www.wbmllp.com/news/wbm-expands-suit-on-apples-2011-macbook-pros" target="_BLANK">WB&M LLP</a></li>
+                                        <li><a href="http://www.lexgroup.ca/classaction/apple-2011-macbook-pro/" target="_BLANK">Lex Group Attorneys</a></li>
+                                    	<li><a href="http://www.mbp2011.com" target="_BLANK">mbp2011.com</a></li>
+                                    <!--ONEPAGECMS-END-->
+                                    </ul>
+                                </div>
+                                <div class="col-sm-3 col-md-3">
+                                    <h3>Documentation</h3>
+                                    <ul class="list-unstyled">
+                                    <!--ONEPAGECMS-START-DOCUMENTATION-->
+                                    	<li><a href="/?page=info">info.mbp2011.org</a></li>
+                                        <li><a href="https://www.facebook.com/notes/2011-macbook-pro-and-discrete-graphics-card-issue/how-to-force-mbp2011-to-boot/365041100287911" target="_BLANK">Force MBP Boot</a></li>
+                                        <li><a href="https://www.bbb.org/" target="_BLANK">Better Business Bureau</a></li>
+                                        <li><a href="https://www.apple.com/legal/warranty/statutoryrights.html" rel="nofollow" target="_BLANK">Apple Warranties</a></li>
+                                        <li><a href="https://docs.google.com/document/d/1Eb-f4R0rWNfK5gPPw4O38bCJZUh5zLTjxj3qSKtqXkA/edit" target="_BLANK"><span class="label label-default">Read More...</span></a>
+                                    <!--ONEPAGECMS-END-->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+
+                <?php
+                    }
+                ?>
+            </section>
+        </div>
+        
+		<!-- Legal Modals -->
+		<script>
+		$('#tos').click(function(){
+			$( "#terms-container" ).load( "/?func=legal #tos-modal", function() {
+				$('#tos-modal').modal('show');
+			});
+		});
+		$('#privacy').click(function(){
+			$( "#privacy-container" ).load( "/?func=legal #privacy-modal", function() {
+				$('#privacy-modal').modal('show');
+			});
+		});
+		$('#tos-small').click(function(){
+			$( "#terms-container" ).load( "/?func=legal #tos-modal", function() {
+				$('#tos-modal').modal('show');
+			});
+		});
+		$('#privacy-small').click(function(){
+			$( "#privacy-container" ).load( "/?func=legal #privacy-modal", function() {
+				$('#privacy-modal').modal('show');
+			});
+		});
+		$('#donate').click(function(){
+			$('#donate-modal').modal('show');
+		});
+		$('#survey').click(function(){
+			$('#survey-modal').modal('show');
+		});
+		</script>
+		<div id="terms-container"></div>
+		<div id="privacy-container"></div>
+        
+        <!--Modals -->
+		<?php
+		if(!isset($_COOKIE['donate'])) 
+		{
+		    
+		    //no cookie exists
+		    //show modal
+		    ?>
+		    
+		    <script>
+			$(document).ready(function() {
+				//show modal, after 6second delay
+				setTimeout(function() {
+					$('#donate-modal').modal('show');
+					trackAction(31);
+				}, 5000);					
+			});
+			</script>
+		    
+		    <?php
+		    
+		    //set cookie, expires in 1 day...
+		    setcookie('donate','shown',time() + (86400)); // 86400 = 1 day // 3600= 1 hr
+		}
+		elseif(isset($_COOKIE['donate']) AND !isset($_COOKIE['survey'])) 
+		{
+		    
+		    //donate cookie exists
+		    //show survey modal
+		    ?>
+		    
+		    <script>
+			$(document).ready(function() {
+				if ( $('.embedded-thank-you-header').length > 0 ){
+				    // Do something if class exists
+				    $('#survey-modal').modal('hide');
+				    
+				} else {
+				    // Do something if class does not exist
+				    //show modal, after 6second delay
+					setTimeout(function() {
+						$('#survey-modal').modal('show');
+						trackAction(32);
+					}, 5000);	
+				}				
+			});
+			</script>
+		    
+		    <?php
+		    
+		    //set cookie, expires in 1 day...
+		    setcookie('survey','shown',time() + (86400 * 7 )); // 86400 = 1 day // 3600= 1 hr
+		}
+		?>
+		<div class="modal fade" id="donate-modal" tabindex="-1" data-backdrop="">
+		    <div class="modal-dialog">
+			   <div class="modal-content">
+				  <div class="modal-header">
+					 <button class="close" data-dismiss="modal" type="button"><span>&times;</span></button>
+					 <h4 class="modal-title black" id="donate-modalLabel">#MBP2011 Community Fund</h4>
+				  </div>
+		
+				  <div class="modal-body">
+				
+					<!-- Preview Image -->
+					<img alt="" class="img-responsive" src="//mbp2011.org/static/img/mbpdonate.png">
+					
+					<hr>
+					
+					<!-- Post Content -->
+					<div class="black">
+						<p>
+							Greetings, #MBP2011 Community! We are asking our members to donate as little or as much as they can to help with the cause. We will mainly use these donations for targeted advertising on Facebook/Google, etc..<br><br>
+							All of your donations and our spending can be viewed on the publicly available spreadsheet here: <a href="/?page=donations" target="_BLANK">#MBP2011 Community Fund - Donations Spreadsheet</a><br><br>
+							<span class="small"><b>Click the PayPal button below to securely donate to the #MBP2011 Community Fund.</b></span><br>
+						</p>
+					</div>
+					<br>
+					<span class="text-center">
+						<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_BLANK">
+							<input name="cmd" type="hidden" value="_s-xclick"> <input name="encrypted" type="hidden" value="-----BEGIN PKCS7-----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-----END PKCS7----- "> <input alt="PayPal - The safer, easier way to pay online!" name="submit" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" type="image"> <img alt="" border="0" height="1" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1">
+						</form>
+					</span>
+					<hr>
+				  </div>
+			   </div>
+		    </div>
+		</div>
+		<div class="modal fade" id="survey-modal" tabindex="-1" data-backdrop="">
+		    <div class="modal-dialog">
+			   <div class="modal-content">
+				  <div class="modal-header">
+					 <button class="close" data-dismiss="modal" type="button"><span>&times;</span></button>
+					 <h4 class="modal-title black" id="donate-modalLabel">#MBP2011 Survey</h4>
+				  </div>
+		
+				  <div class="modal-body overflowing">
+				  	<div id="surveyMonkeyInfo"><div><script src="https://www.surveymonkey.com/jsEmbed.aspx?sm=1X9zWZKj6e2yXNcrDAxz3w_3d_3d"> </script></div>Create your free online surveys with <a href="https://www.surveymonkey.com">SurveyMonkey</a> , the world's leading questionnaire tool.</div>	
+				  </div>
+			   </div>
+		    </div>
+		</div>
+		
+        
+        <!-- Extra JavaScript
+            ================================================== -->
+        <script src="/static/js/modernizr.custom.js"></script>
+        <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        
+        <script src="/static/js/jquery.ias.js"></script>
+        <script src="/static/js/stepWizard.js"></script>
+        <script src="/static/js/trackAction.js"></script>
+        <script src="/static/js/twitterfetch.js"></script>
+        <!-- <script src="/static/js/classie.js"></script>
+        <script src="/static/js/cbpAnimatedHeader.min.js"></script> -->
+        <script src="/static/js/scrollReveal.js" ></script>
+        <script src="/static/js/jquery.scrollTo.js" defer="defer"></script>
+        <script src="/static/js/jquery.nav.js" defer="defer"></script>
+        <script src="/static/js/imagesloaded.pkgd.min.js" defer="defer"></script>
+        <script src="/static/js/isotope.min.js"></script>
+        <script src="/static/js/jquery.magnific-popup.min.js" defer="defer"></script>
+        <script src="/static/js/owl.carousel.min.js"></script>
+        <script src="/static/js/custom.js"></script>
+        
+        <a href="#" class="back-to-top"><i class="icon-large fa fa-arrow-up scroll"></i></a>
+    </body>
+</html>
