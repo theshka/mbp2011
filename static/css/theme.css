@@ -3258,6 +3258,11 @@ section.cta .btn {
 
 /* My Custom CSS */
 
+/* fix SurveyMonkey */
+#surveyMonkeyInfo, #sm_e_s {
+	width: 100% !important;
+}
+
 /* fix addThis */
 .at4lb-inner {
 	z-index:-999999
