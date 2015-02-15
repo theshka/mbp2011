@@ -25,7 +25,7 @@
         <meta name="twitter:image" content="http://www.mbp2011.com/wp-content/uploads/2013/09/mbp20111.jpg" />
 
         <!--Dublin Core Meta -->
-        <meta name="DC.Title" content="mbp2011: 2011 MacBook Pro, GPU Failure">
+        <meta name="DC.Title" content="<?php echo(SITE_NAME); ?> - <?php echo($page_title); ?> - <?php echo(SITE_SLOGAN); ?>">
         <meta name="DC.Creator" content="Apple Computer Owners">
         <meta name="DC.Subject" content="Activism, Petition, Consumer Rights">
         <meta name="DC.Description" content="Owners of the mbp2011 MacBook Pro line of computers experiencing widespread GPU failures will not be satisfied until our machines are restored to FULL working order through a replacement program at no cost to the users.">
@@ -46,12 +46,12 @@
 
         <!-- Bootstrap core CSS -->
         <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-        <link href="/static/css/theme.css" rel="stylesheet">
 
         <!-- Custom styles for this template -->
+        <link href="/static/css/theme.css" rel="stylesheet">
         <link href="/static/css/magnific-popup.css" rel="stylesheet">
 
-        <!-- Font Awesome -->
+        <!-- Fonts -->
         <link href="/static/css/font-awesome.min.css" rel="stylesheet">
         <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
         <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
@@ -61,12 +61,12 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond./static/js/1.3.0/respond.min.js"></script>
         <![endif]-->
-        
+
         <!-- Core JavaScript
             ================================================== -->
         <script src="/static/js/jquery.min.js"></script>
         <script src="/static/js/bootstrap.min.js"></script>
-        
+
 	   <?php
 	   	//only track non-admin pages...
 		if ( !preg_match('/admin/', $page) )
@@ -83,7 +83,7 @@
             ga('require', 'displayfeatures');
             ga('send', 'pageview');
         </script>
-        <?php 
+        <?php
         }
         ?>
     </head>
