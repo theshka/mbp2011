@@ -16,7 +16,7 @@ This site uses a collection of open-source code, please review and respect the c
 
 For all other original and contributed code, this project releases your work using The MIT License (MIT)
 
-Copyright (c) 2015
+Copyright (c) 2015 #MBP2011 Community
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
