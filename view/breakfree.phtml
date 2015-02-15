@@ -1,12 +1,8 @@
-<?php 
+<?php
 //instance the class
-$s3 = new S3($awsAccessKey, $awsSecretKey);
+$s3 = new S3(AWS_ACCESS_KEY, AWS_SECRET_KEY);
 
-//DEBUGGING......
-//print_r(S3::listBuckets());
-//echo date('r');
-
-if ( isset($_POST['submit']) ) 
+if ( isset($_POST['submit']) )
 {
 	//
 	if ( !empty($_POST['name']) && !empty($_POST['email']) )
@@ -18,18 +14,18 @@ if ( isset($_POST['submit']) )
 			$name = $_FILES['photo']['name'];
 			$size = $_FILES['photo']['size'];
 			$type = $_FILES['photo']['type'];
-			$tmp  = $_FILES['photo']['tmp_name'];	
+			$tmp  = $_FILES['photo']['tmp_name'];
 			$allowed = array("image/jpg", "image/jpeg", "image/gif", "image/png");
-			
+
 			//begin upload logic
 			if ( in_array($type, $allowed) )
-			{	
-				//////Upload Process		
-				$s3->putBucket($bucket, S3::ACL_PUBLIC_READ);
-				
+			{
+				//////Upload Process
+				$s3->putBucket(AWS_BUCKET, S3::ACL_PUBLIC_READ);
+
 				//Rename image name
 				$actual_image_name = 'BREAKFREE_' . time() . '.jpg';
-				
+
 				//capture user details
 				$community_name = $database->escape($_POST['name']);
 				$community_email = $database->escape($_POST['email']);
@@ -40,31 +36,31 @@ if ( isset($_POST['submit']) )
 					'ip' => getIP()
 				);
 				$database->insert( 'community', $community );
-			
+
 				//Upload full-resolution to S3
-				if($s3->putObjectFile($tmp, $bucket , $actual_image_name, S3::ACL_PUBLIC_READ) )
+				if($s3->putObjectFile($tmp, AWS_BUCKET , $actual_image_name, S3::ACL_PUBLIC_READ) )
 				{
 					//full-resolution upload success
 					//resize the photo, and upload the thumbnail...
-					$s3->putBucket($bucket, S3::ACL_PUBLIC_READ);
-					
+					$s3->putBucket(AWS_BUCKET, S3::ACL_PUBLIC_READ);
+
 					//resize the thumbnail
 					$tmpSmall = sys_get_temp_dir() . '/' . $actual_image_name;
-					
+
 					$tmp = generateThumbnail($_FILES['photo']['tmp_name'], $tmpSmall);
-					
-					//Rename image name. 
+
+					//Rename image name.
 					$small_actual_image_name = 'small/' . $actual_image_name;
-					
+
 					//Upload tumbnail to S3
-					if($s3->putObjectFile($tmpSmall, $bucket , $small_actual_image_name, S3::ACL_PUBLIC_READ) )
+					if($s3->putObjectFile($tmpSmall, AWS_BUCKET , $small_actual_image_name, S3::ACL_PUBLIC_READ) )
 					{
-						//Complete upload success!! 
-						$alert = bsAlert('success','Image was successfully uploaded!'); 
+						//Complete upload success!!
+						$alert = bsAlert('success','Image was successfully uploaded!');
 						$redirect = TRUE;
 					}
-				   
-					//end resize logic 
+
+					//end resize logic
 				}
 				else
 				{
@@ -74,12 +70,12 @@ if ( isset($_POST['submit']) )
 			}
 			else
 			{
-				$alert= bsAlert('error','Only .png, .gif, .jpg, .jpeg files are allowed!'); 
+				$alert= bsAlert('error','Only .png, .gif, .jpg, .jpeg files are allowed!');
 			}
 		}
 		else
 		{
-			$alert= bsAlert('error','Invalid email entered!'); 
+			$alert= bsAlert('error','Invalid email entered!');
 		}
 	}
 	else
@@ -93,88 +89,88 @@ if ( isset($_POST['submit']) )
 <div class="container">
 	<div class="row text-center">
 		<div class="col-md-12">
-			
+
 			<div class="col-md-10 col-md-offset-1">
 				<h2>
 					<strike>BREAKFREE.CC</strike> Photo Stream
 					<small><a href="https://www.facebook.com/media/set/?set=a.365118100280211.1073741831.365036026955085">Mirror 2</a></small>
 				</h2>
-				
+
 				<button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#uploadPhoto">
 				  Upload Photos
 				</button>
-				
+
 				<hr>
 			</div>
-						
+
 			 <div id="portfolio" class="grid cs-style-1">
 				<?php
-					//scan image directory 
-					//$images = array_diff(scandir('static/img/breakfree/', 1), array('..', '.'));		
-					
+					//scan image directory
+					//$images = array_diff(scandir('static/img/breakfree/', 1), array('..', '.'));
+
 					// Grab our data from the Amazon
-					// AWS S3 (Simple Storage System) 
-					
+					// AWS S3 (Simple Storage System)
+
 					//Fetch XML image list...
 					$url = 'http://mbp2011.s3.amazonaws.com/';
 					$urlSmall = 'http://mbp2011.s3.amazonaws.com/small/';
-					//$urlLarge = 'http://mbp2011.s3.amazonaws.com/large/';
-					
+
 					//Parse XML image list to PHP object...
 					$xml = simplexml_load_file($url);
-					
+
 					//For each XML object as PHP object
-					foreach( $xml->Contents as $xml ) 
+					foreach( $xml->Contents as $xml )
 					{
 						//Match only the BREAKFREE filename object.
-						if ( preg_match('/^BREAKFREE/', $xml->Key ) ) 
+						if ( preg_match('/^BREAKFREE/', $xml->Key ) )
 						{
-							//Gather filenames in array 
+							//Gather filenames in array
 							$images[] = $xml->Key;
 						}
-						
+
 					}
-					
-					//paginate logic			
-					
+
+					//paginate logic
+
 					// how many images are there?
 					$img_count = count($images);
-					
+
 					// how many to show on each page?
 					$per_page = 15;
-					
+
 					// calculate pagination
 					$max_pages = ceil($img_count / $per_page);
-					
+
 					//calculate offset
-					if (empty($_GET['offset'])) 
-					{ 
+					if (empty($_GET['offset']))
+					{
 						//show first page
-						$offset = 1; 
+						$offset = 1;
 					}
 					elseif($_GET['offset'] > $max_pages )
 					{
+						//show last page
 						header('Location: /?page=breakfree&offset=' . ($max_pages - 1));
 					}
-					else 
+					else
 					{
 						//show requested page
 						$offset = $_GET['offset'];
 					}
-					
-					// splice array according to pagination 
+
+					// splice array according to pagination
 					$show = array_slice($images, $per_page * intval($offset) - 1, $per_page);
-					
+
 					//display images
-					foreach ($show as $image) 
+					foreach ($show as $image)
 					{
 						echo '<a class="popup-gallery" href="' .  $url . $image . '" alt="" target="_BLANK"><img src="' . $urlSmall . $image . '" alt="" /></a>';
 					}
-					
+
 					//pagination link logic
 					if($offset < $max_pages)
 					{
-						echo 
+						echo
 						'
 						<br>
 						<div class="photos-more">
@@ -196,80 +192,82 @@ if ( isset($_POST['submit']) )
 
 <!-- Modal -->
 <div class="modal fade" id="uploadPhoto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title black" id="myModalLabel">Upload Photos</h4>
-      </div>
-      <div class="modal-body">
-	   <div class="row">
-		<div class="col-md-12">
-			<?php 					
-				if ( isset($alert) )
-				{
-					echo $alert;
-					echo '<script>$(\'#uploadPhoto\').modal(\'show\');</script>';
-				}
-			?>
-			<form id="uploadPhoto" action="/?page=breakfree" method="post" enctype="multipart/form-data" class="form">
-				<div class="form-group">
-					<label for="name" class="black">Name:</label>
-					<input type="text" name="name" id="name" class="form-control">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title black" id="myModalLabel">Upload Photos</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<?php
+							if ( isset($alert) )
+							{
+								echo $alert;
+								echo '<script>$(\'#uploadPhoto\').modal(\'show\');</script>';
+							}
+						?>
+						<form id="uploadPhoto" action="/?page=breakfree" method="post" enctype="multipart/form-data" class="form">
+							<div class="form-group">
+								<label for="name" class="black">Name:</label>
+								<input type="text" name="name" id="name" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="email" class="black">Email:</label>
+								<input type="text" name="email" id="email" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="photo" class="black">Photo Upload:</label>
+								<input type="file" name="photo" id="photo" class="form-control">
+							</div>
+
+							<small class="black"><sup>*</sup><strong>Read our <a href="#" id="privacy">privacy policy</a> to learn how we use and protect this information.</strong><sup>*</sup></small>
+						</div>
+					</div>
+
+					<br>
+
 				</div>
-				<div class="form-group">
-					<label for="email" class="black">Email:</label>
-					<input type="text" name="email" id="email" class="form-control">
-				</div>
-				<div class="form-group">
-					<label for="photo" class="black">Photo Upload:</label>
-					<input type="file" name="photo" id="photo" class="form-control">
-				</div>
-				
-				<small class="black"><sup>*</sup><strong>Read our <a href="#" id="privacy">privacy policy</a> to learn how we use and protect this information.</strong><sup>*</sup></small>
+				<div class="modal-footer">
+
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<input type="submit" value="Upload" name="submit" id="submit" class="btn btn-default">
+
+				</form>
+			</div>
 		</div>
 	</div>
-	
-	<br>
-	
-	
-      </div>
-      <div class="modal-footer">
-        			
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-				<input type="submit" value="Upload" name="submit" id="submit" class="btn btn-default">
-        		</form>
-      </div>
-    </div>
-  </div>
 </div>
 
+<!-- Javascript -->
 <script type="text/javascript">
-$(document).ready(function() {
-	
-	$('#submit').click(function(){
-	    $(this).disabled=true;
-	});
-	
-	// Infinite Ajax Scroll configuration
-	var ias = jQuery.ias({
-	  container:  '#portfolio',
-	  item:       '.popup-gallery',
-	  pagination: '.photos-more',
-	  next:       '.photos-more li a',
-	});
-	
-	ias.on('rendered', function(items) {
-		magnificPopup();
-	});
+	$(document).ready(function() {
 
-	// Add a loader image which is displayed during loading
-	ias.extension(new IASSpinnerExtension());
+		$('#submit').click(function(){
+		    $(this).disabled=true;
+		});
 
-	// Add a text when there are no more pages left to load
-	ias.extension(new IASNoneLeftExtension({text: '<div class="alert alert-info"> There are no more posts to show! </div>'}));
+		// Infinite Ajax Scroll configuration
+		var ias = jQuery.ias({
+		  container:  '#portfolio',
+		  item:       '.popup-gallery',
+		  pagination: '.photos-more',
+		  next:       '.photos-more li a',
+		});
 
-});
+		ias.on('rendered', function(items) {
+			magnificPopup();
+		});
+
+		// Add a loader image which is displayed during loading
+		ias.extension(new IASSpinnerExtension());
+
+		// Add a text when there are no more pages left to load
+		ias.extension(new IASNoneLeftExtension({text: '<div class="alert alert-info"> There are no more posts to show! </div>'}));
+
+	});
 </script>
 
+<!-- Redirect to last page if successful upload -->
 <?php if (isset($redirect) && $redirect == TRUE){ fsleep(5); header( 'Location: /?page=breakfree&offset=' . ($max_pages - 1) ); }?>

@@ -3258,6 +3258,15 @@ section.cta .btn {
 
 /* My Custom CSS */
 
+/* Frame Style */
+.frame{
+	position:relative !important;
+	top:0em;
+	left:0;
+	width: 100%;
+	height:800px;
+}
+
 /* fix SurveyMonkey */
 #surveyMonkeyInfo, #sm_e_s {
 	width: 100% !important;
@@ -3343,7 +3352,7 @@ section.cta .btn {
 
 .geoRow{
 	/* The div that contains each country */
-	
+
 	height:30px;
 	overflow:hidden;
 	padding:2px 0;
@@ -3375,7 +3384,7 @@ section.cta .btn {
 
 /* feedburner css */
 .feedburnerFeedBlock {
-	display: block; 
+	display: block;
 }
 
 .feedburnerFeedBlock ul {
@@ -3389,7 +3398,7 @@ section.cta .btn {
 
 .feedburnerFeedBlock ul li .headline {
 	font-weight: bold;
-	
+
 }
 
 .feedburnerFeedBlock ul li .headline a {

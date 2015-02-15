@@ -31,9 +31,9 @@ define ('SITE_COUNTRY', '');                 							   	   	  // set site addres
 define ('SITE_ZIP', '');                       									  // site zip
 define ('SITE_PHONE', '');              										  // site phone number
 
-define('RSS_URL', 'http://feeds.feedburner.com/2011MacbookPro-GoogleNews');			  //RSS Url 
+define('RSS_URL', 'http://feeds.feedburner.com/2011MacbookPro-GoogleNews');			  //RSS Url
 
 //AWS access info
-$bucket = 'mbp2011';						  // bucket name
-$awsAccessKey = '';							  // access key
-$awsSecretKey = '';							  // secret key
+define( "AWS_BUCKET", 'mbp2011' );                 // Upload to this bucket
+define( "AWS_ACCESS_KEY", '' );                    // AWS S3 Access Key
+define( "AWS_SECRET_KEY", '' );                    // AWS S3 Secret Key
