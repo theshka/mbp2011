@@ -14,9 +14,7 @@ Feel free to start a fork and help make http://mbp2011.org/ the best Apple-fight
 ## License
 This site uses a collection of open-source code, please review and respect the copyright notices located at the top of each file, or in the separate LICENSE file.
 
-For all other original and contributed code, this project releases your work using The MIT License (MIT)
-
-Copyright (c) 2015 #MBP2011 Community
+For all other original and contributed code, this project releases your work using The MIT License (MIT) Copyright (c) 2014 #MBP2011 Community
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
