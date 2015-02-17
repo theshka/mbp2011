@@ -5,7 +5,7 @@ Feel free to start a fork and help make http://mbp2011.org/ the best Apple-fight
 ## Contributing
 * Create a Fork of the main branch.
 * Clone the repository `$ git clone http://github.com/yourusername/mbp2011`
-* Add a connection to the repository.`$ git remote add mmbp2011 http://github.com/mbp2011/mbp2011`
+* Add a connection to the repository.`$ git remote add mbp2011 http://github.com/mbp2011/mbp2011`
 * Make changes to files.
 * `git add` and `git commit` those changes
 * `git push` them back to github. These will go to your version of the repository.
