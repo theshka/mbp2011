@@ -4,7 +4,7 @@
 			<div id="testimonials-inner"></div>
 		</div>
 	</div>
-	
+
 	<div class="row">
 		<div class="col-md-12">
 			<div class="owl-carousel" id="owl-example">
@@ -17,7 +17,7 @@
 						<div class="owl-item item">
 						   <!-- item_image -->
 						   <a href="' . $row['item_url'] . '" target="_BLANK"><img src="' . $row['item_image'] . '" class="media img-thumbnail" alt="' . $row['item_title'] . '" /></a>
-			
+
 						   <!-- item_title/item_url -->
 						   <span class="post-title">
 							  <strong>
@@ -26,13 +26,13 @@
 								 </a>
 							  </strong>
 						   </span>
-			
+
 						   <div class="content">
 							  <div class="author text-muted">
 								 By: <strong><a href="' . $row['item_author_url'] . '" target="_BLANK">' . $row['item_author'] . '</a></strong> | ' . timeAgo(strtotime($row['item_date'])) . '
 						';
-						
-								
+
+
 						// ... ask if we are logged in here:
 						if ($login->isUserLoggedIn() == true) {
 							echo'
@@ -46,29 +46,29 @@
 								</span>
 							';
 						}
-				 
+
 						echo '
 							  </div>
 							  <hr class="owlArticleHR" />
 							  <p>
 								 "
 						';
-			
+
 								 $previewLength = 50;
-			
+
 								 if (strlen($row['item_snippet']) > $previewLength)
 								 {
 									$preview= truncate($row['item_snippet'],
 									$length = $previewLength,
 									$ending='...<a href="' . $row['item_url'] . '" target="_BLANK"> Read more</a>', $exact = false, $considerHtml = true);
-			
+
 									echo $preview;
 								 }
 								 else
 								 {
 									echo $row['item_snippet'];
 								 }
-			
+
 						echo'
 								 "
 							  </p>
@@ -80,7 +80,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<br>
 	<hr class="darkhr">
 
@@ -88,9 +88,9 @@
 		<div class="col-md-12">
 			<p>
 				<h2>More News...</h2>
-				<script src="http://feeds.feedburner.com/2011MacbookPro-GoogleNews?format=sigpro" type="text/javascript" ></script>
-				<small><p>Subscribe to RSS headline updates from: <a href="http://feeds.feedburner.com/2011MacbookPro-GoogleNews" target="_BLANK">#MBP2011</a></small>
-			
+				<script src="//feeds.feedburner.com/2011MacbookPro-GoogleNews?format=sigpro" type="text/javascript" ></script>
+				<small><p>Subscribe to RSS headline updates from: <a href="//feeds.feedburner.com/2011MacbookPro-GoogleNews" target="_BLANK">#MBP2011</a></small>
+
 			</p>
 		</div>
 	</div>
