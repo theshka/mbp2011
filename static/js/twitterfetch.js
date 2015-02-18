@@ -50,7 +50,7 @@ var twitterFetcher = function () {
                 showRt: b,
                 customCallback: m,
                 showInteraction: n
-            }) : (t = !0, y = c, l = g, s = f, r = a, q = h, z = b, u = d, w = m, A = n, c = document.createElement("script"), c.type = "text/javascript", c.src = "http://cdn.syndication.twimg.com/widgets/timelines/" + e + "?&lang=en&callback=twitterFetcher.callback&suppress_response_codes=true&rnd=" + Math.random(), document.getElementsByTagName("head")[0].appendChild(c))
+            }) : (t = !0, y = c, l = g, s = f, r = a, q = h, z = b, u = d, w = m, A = n, c = document.createElement("script"), c.type = "text/javascript", c.src = "https://cdn.syndication.twimg.com/widgets/timelines/" + e + "?&lang=en&callback=twitterFetcher.callback&suppress_response_codes=true&rnd=" + Math.random(), document.getElementsByTagName("head")[0].appendChild(c))
         },
         callback: function (e) {
             var c = document.createElement("div");
@@ -121,7 +121,7 @@ var twitterFetcher = function () {
 /**
  * How to use fetch function:
  * @param {string} Your Twitter widget ID.
- * @param {string} The ID of the DOM element you want to write results to. 
+ * @param {string} The ID of the DOM element you want to write results to.
  * @param {int} Optional - the maximum number of tweets you want returned. Must
  *     be a number between 1 and 20.
  * @param {boolean} Optional - set true if you want urls and hash
