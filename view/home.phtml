@@ -29,18 +29,6 @@
                 }
             ?>
 
-            <!-- Online Widget -->
-            <div class="onlineWidget alert alert-success black">
-                <div class="panel-header">
-                    <br>
-                    <h2 class="panel-title text-center"> <span class="count"></span> visitor(s) online</h2>
-                    <hr style="margin-bottom:1px !important;">
-                </div>
-                <div class="panel-body">
-                    <div class="online-panel"></div>
-                </div>
-            </div>
-
         </div>
 
         <!-- Middle column -->
@@ -65,7 +53,7 @@
                     <script>
                         // This code loads the IFrame Player API code asynchronously
                         var tag = document.createElement('script');
-                        tag.src = "http://www.youtube.com/iframe_api";
+                        tag.src = "//www.youtube.com/iframe_api";
                         var firstScriptTag = document.getElementsByTagName('script')[0];
                         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
@@ -109,6 +97,17 @@
 
         <!-- Right column -->
         <div class="col-md-3">
+            <!-- Online Widget -->
+            <div class="onlineWidget alert alert-success black">
+                <div class="panel-header">
+                    <br>
+                    <h2 class="panel-title text-center"> <span class="count"></span> visitor(s) online</h2>
+                    <hr style="margin-bottom:1px !important;">
+                </div>
+                <div class="panel-body">
+                    <div class="online-panel"></div>
+                </div>
+            </div>
 
             <!-- Recent Uploads -->
             <div class="photoWidget alert alert-success black">
@@ -123,8 +122,8 @@
                     // AWS S3 (Simple Storage System)
 
                     //Fetch XML image list...
-                    $url = 'http://mbp2011.s3.amazonaws.com/';
-                    $urlSmall = 'http://mbp2011.s3.amazonaws.com/small/';
+                    $url = '//mbp2011.s3.amazonaws.com/';
+                    $urlSmall = '//mbp2011.s3.amazonaws.com/small/';
 
                     //Parse XML image list to PHP object...
                     $xml = simplexml_load_file($url);
