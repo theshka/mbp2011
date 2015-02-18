@@ -112,8 +112,8 @@ if ( isset($_POST['submit']) )
 					// AWS S3 (Simple Storage System)
 
 					//Fetch XML image list...
-					$url = 'http://mbp2011.s3.amazonaws.com/';
-					$urlSmall = 'http://mbp2011.s3.amazonaws.com/small/';
+					$url = 'https://mbp2011.s3.amazonaws.com/';
+					$urlSmall = 'https://mbp2011.s3.amazonaws.com/small/';
 
 					//Parse XML image list to PHP object...
 					$xml = simplexml_load_file($url);
