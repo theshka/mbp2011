@@ -4,251 +4,230 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-
-	<url>
-		<loc>http://mbp2011.org/</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=action</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=news</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>always</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>always</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=info</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=analytics</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=downloads</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=2</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=3</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=4</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=5</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=6</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=7</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=8</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=9</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=10</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=11</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=12</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=13</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=14</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=15</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=16</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=17</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=18</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=19</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=20</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=21</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=22</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=23</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=24</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=25</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=26</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=27</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=28</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=29</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=30</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=31</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=32</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=33</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=34</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>http://mbp2011.org/?page=breakfree&amp;offset=35</loc>
-		<lastmod>2015-02-10</lastmod>
-		<changefreq>hourly</changefreq>
-		<priority>0.5</priority>
-	</url>
+<url>
+  <loc>https://mbp2011.org/</loc>
+  <changefreq>always</changefreq>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=action</loc>
+  <changefreq>always</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=news</loc>
+  <changefreq>always</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree</loc>
+  <changefreq>always</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=info</loc>
+  <changefreq>always</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=contact</loc>
+  <changefreq>always</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=downloads</loc>
+  <changefreq>always</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=analytics</loc>
+  <changefreq>always</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=donations</loc>
+  <changefreq>always</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=2</loc>
+  <changefreq>always</changefreq>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?func=download&amp;file=022_First_Amended_Complaint.pdf</loc>
+  <lastmod>2015-02-19T03:53:13+00:00</lastmod>
+  <changefreq>always</changefreq>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=3</loc>
+  <changefreq>always</changefreq>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=4</loc>
+  <changefreq>always</changefreq>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=5</loc>
+  <changefreq>always</changefreq>
+  <priority>0.33</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=6</loc>
+  <changefreq>always</changefreq>
+  <priority>0.26</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=7</loc>
+  <changefreq>always</changefreq>
+  <priority>0.21</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=8</loc>
+  <changefreq>always</changefreq>
+  <priority>0.17</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=9</loc>
+  <changefreq>always</changefreq>
+  <priority>0.13</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=10</loc>
+  <changefreq>always</changefreq>
+  <priority>0.11</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=11</loc>
+  <changefreq>always</changefreq>
+  <priority>0.09</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=12</loc>
+  <changefreq>always</changefreq>
+  <priority>0.07</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=13</loc>
+  <changefreq>always</changefreq>
+  <priority>0.05</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=14</loc>
+  <changefreq>always</changefreq>
+  <priority>0.04</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=15</loc>
+  <changefreq>always</changefreq>
+  <priority>0.04</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=16</loc>
+  <changefreq>always</changefreq>
+  <priority>0.03</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=17</loc>
+  <changefreq>always</changefreq>
+  <priority>0.02</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=18</loc>
+  <changefreq>always</changefreq>
+  <priority>0.02</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=19</loc>
+  <changefreq>always</changefreq>
+  <priority>0.01</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=20</loc>
+  <changefreq>always</changefreq>
+  <priority>0.01</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=21</loc>
+  <changefreq>always</changefreq>
+  <priority>0.01</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=22</loc>
+  <changefreq>always</changefreq>
+  <priority>0.01</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=23</loc>
+  <changefreq>always</changefreq>
+  <priority>0.01</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=24</loc>
+  <changefreq>always</changefreq>
+  <priority>0.00</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=25</loc>
+  <changefreq>always</changefreq>
+  <priority>0.00</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=26</loc>
+  <changefreq>always</changefreq>
+  <priority>0.00</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=27</loc>
+  <changefreq>always</changefreq>
+  <priority>0.00</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=28</loc>
+  <changefreq>always</changefreq>
+  <priority>0.00</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=29</loc>
+  <changefreq>always</changefreq>
+  <priority>0.00</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=30</loc>
+  <changefreq>always</changefreq>
+  <priority>0.00</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=31</loc>
+  <changefreq>always</changefreq>
+  <priority>0.00</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=32</loc>
+  <changefreq>always</changefreq>
+  <priority>0.00</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=33</loc>
+  <changefreq>always</changefreq>
+  <priority>0.00</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=34</loc>
+  <changefreq>always</changefreq>
+  <priority>0.00</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=35</loc>
+  <changefreq>always</changefreq>
+  <priority>0.00</priority>
+</url>
+<url>
+  <loc>https://mbp2011.org/?page=breakfree&amp;offset=36</loc>
+  <changefreq>always</changefreq>
+  <priority>0.00</priority>
+</url>
 </urlset>
