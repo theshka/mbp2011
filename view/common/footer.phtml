@@ -12,51 +12,37 @@
                                     <div class="footer-logo">
                                         <h3>Hosting By:</h3>
                                         <a href="http://www.totalserversolutions.com" onClick="trackAction(15);" target="_BLANK"><img src="/static/img/tss.png" alt="Hosting Provided By: Total Server Solutions" width="150px"/></a>
-
-                                   	<hr class="hidden-xs" style="width:11em;; margin-left: 0px;">
-                                   	<br class="visible-xs"><br class="visible-xs">
-                                   	<h3 class="visible-xs">Legal</h3>
+                                        <br>
+                                        <span id="siteseal"><script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=cM17GlKIsJWmunMwnO7TmipythvSXSnNfPvlRUwxe1NRm17Vv7TRuXfT8CcV"></script></span>
                                     </div>
-
-							<ul class="list-unstyled" style="margin-left:1em;">
-								<li class="hidden-xs">
-									<a href="#" id="tos">TOS</a>&nbsp;|&nbsp;<a href="#" id="privacy">Privacy Policy</a>
-								</li>
-								<li class="visible-xs">
-									<a href="#" id="tos-small">Terms of Use</a>
-								</li>
-								<li class="visible-xs">
-									<a href="#" id="privacy-small">Privacy Policy</a>
-								</li>
-							</ul>
+                                </div>
+                                <div class="col-sm-3 col-md-3">
+                                    <h3>#MBP2011 Limks</h3>
+                                    <ul class="list-unstyled">
+                                    	<li><a href="#" id="donate">Donate</a></li>
+                                    	<li><a href="#" id="survey">Survey</a></li>
+                                      <li><a href="#" id="tos-small">Terms of Use</a></li>
+                                      <li><a href="#" id="privacy-small">Privacy Policy</a></li>
+                                    	<li><a href="/?page=contact" target="_self">Contact Us!</a></li>
+                                    </ul>
                                 </div>
                                 <div class="col-sm-3 col-md-3">
                                     <h3>Top Links</h3>
                                     <ul class="list-unstyled">
-                                    	<li><a href="#" id="donate">Donate</a></li>
-                                    	<li><a href="#" id="survey">Survey</a></li>
-                                    	<li><a href="/?page=contact" target="_self">Contact Us!</a></li>
-                                    	<li><a href="/?page=analytics" target="_self" onClick="trackAction(18);">Analytics</a></li>
-                                        <li><a href="/?page=downloads" target="_self">Downloads</a></li>
+                                      <li><a href="/?page=analytics" target="_self" onClick="trackAction(18);">Analytics</a></li>
+                                      <li><a href="/?page=downloads" target="_self">Downloads</a></li>
+                                      <li><a href="/?page=info">info.mbp2011.org</a></li>
+                                    	<li><a href="/breakfree/">breakfree.cc Mirror</a></li>
+                                    	<li><a href="http://www.mbp2011.com" target="_BLANK">mbp2011.com</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-3 col-md-3">
                                     <h3>More Links</h3>
                                     <ul class="list-unstyled">
-                                    	<li><a href="/breakfree/">breakfree.cc Mirror</a></li>
-                                    	<li><a href="http://www.wbmllp.com/news/wbm-expands-suit-on-apples-2011-macbook-pros" target="_BLANK">WB&M LLP</a></li>
-                                        <li><a href="http://www.lexgroup.ca/classaction/apple-2011-macbook-pro/" target="_BLANK">Lex Group Attorneys</a></li>
-                                    	<li><a href="http://www.mbp2011.com" target="_BLANK">mbp2011.com</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-sm-3 col-md-3">
-                                    <h3>Documentation</h3>
-                                    <ul class="list-unstyled">
-                                    	<li><a href="/?page=info">info.mbp2011.org</a></li>
-                                        <li><a href="https://www.facebook.com/notes/2011-macbook-pro-and-discrete-graphics-card-issue/how-to-force-mbp2011-to-boot/365041100287911" target="_BLANK">Force MBP Boot</a></li>
-                                        <li><a href="https://www.bbb.org/" target="_BLANK">Better Business Bureau</a></li>
-                                        <li><a href="https://www.apple.com/legal/warranty/statutoryrights.html" rel="nofollow" target="_BLANK">Apple Warranties</a></li>
-                                        <li><a href="https://docs.google.com/document/d/1Eb-f4R0rWNfK5gPPw4O38bCJZUh5zLTjxj3qSKtqXkA/edit" target="_BLANK"><span class="label label-default">Read More...</span></a>
+                                      <li><a href="http://www.wbmllp.com/news/wbm-expands-suit-on-apples-2011-macbook-pros" target="_BLANK">WB&amp;M LLP</a></li>
+                                      <li><a href="http://www.lexgroup.ca/classaction/apple-2011-macbook-pro/" target="_BLANK">Lex Group Attorneys</a></li>
+                                      <li><a href="https://www.bbb.org/" target="_BLANK">Better Business Bureau</a></li>
+                                      <li><a href="https://www.apple.com/legal/warranty/statutoryrights.html" rel="nofollow" target="_BLANK">Apple Warranties</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -72,37 +58,37 @@
 
 		<!-- Legal Modals -->
 		<script>
-		$('#tos').click(function(){
-			$( "#terms-container" ).load( "/?func=legal #tos-modal", function() {
-				$('#tos-modal').modal('show');
-			});
-		});
-		$('#privacy').click(function(){
-			$( "#privacy-container" ).load( "/?func=legal #privacy-modal", function() {
-				$('#privacy-modal').modal('show');
-			});
-		});
-		$('#tos-small').click(function(){
-			$( "#terms-container" ).load( "/?func=legal #tos-modal", function() {
-				$('#tos-modal').modal('show');
-			});
-		});
-		$('#privacy-small').click(function(){
-			$( "#privacy-container" ).load( "/?func=legal #privacy-modal", function() {
-				$('#privacy-modal').modal('show');
-			});
-		});
-		$('#donate').click(function(){
-			$('#donate-modal').modal('show');
-		});
-		$('#survey').click(function(){
-			$('#survey-modal').modal('show');
-		});
-		</script>
+  		$('#tos').click(function(){
+  			$( "#terms-container" ).load( "/?func=legal #tos-modal", function() {
+  				$('#tos-modal').modal('show');
+  			});
+  		});
+  		$('#privacy').click(function(){
+  			$( "#privacy-container" ).load( "/?func=legal #privacy-modal", function() {
+  				$('#privacy-modal').modal('show');
+  			});
+  		});
+  		$('#tos-small').click(function(){
+  			$( "#terms-container" ).load( "/?func=legal #tos-modal", function() {
+  				$('#tos-modal').modal('show');
+  			});
+  		});
+  		$('#privacy-small').click(function(){
+  			$( "#privacy-container" ).load( "/?func=legal #privacy-modal", function() {
+  				$('#privacy-modal').modal('show');
+  			});
+  		});
+  		$('#donate').click(function(){
+  			$('#donate-modal').modal('show');
+  		});
+  		$('#survey').click(function(){
+  			$('#survey-modal').modal('show');
+  		});
+  	</script>
 		<div id="terms-container"></div>
 		<div id="privacy-container"></div>
 
-        <!--Modals -->
+    <!--Modals -->
 		<?php
 		if(!isset($_COOKIE['donate']))
 		{
@@ -224,6 +210,6 @@
         <script src="/static/js/custom.js"></script>
 
         <a href="#" class="back-to-top"><i class="icon-large fa fa-arrow-up scroll"></i></a>
-        
+
     </body>
 </html>
