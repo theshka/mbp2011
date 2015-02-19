@@ -178,7 +178,7 @@
 					<strong>#MBP2011 Community</strong><br>
 					Omnipresent, Worldwide<br>
 					<abbr title="Email">E:</abbr> webmaster@mbp2011.org<br>
-					<a href="http://mbp2011.org">http://mbp2011.org</a>
+					<a href="https://mbp2011.org">https://mbp2011.org</a>
 				</address>
 
 				<br>
